@@ -1,0 +1,17 @@
+#hedera .container #scForm span {
+  color: #f9f9f9;
+  font-family: 'Styrene300';
+  font-size: 14px;
+  font-weight: 400;
+  font-weight: bold;
+}
+
+#hedera .container #scForm label {
+  color: #f9f9f9;
+  font-family: 'Styrene300';
+  font-size: 10px;
+}
+
+#hedera .container #scForm #sc-btn-group {
+  width: 248;
+}

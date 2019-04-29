@@ -1,0 +1,9 @@
+#hedera .fixed-bottom {
+  right: 30px;
+  left: 30px;
+  bottom: 30px;
+}
+
+#hedera #portal {
+  text-align: center;
+}

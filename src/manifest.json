@@ -1,0 +1,43 @@
+{
+    "manifest_version": 2,
+    "name": "Hedera Browser Extension",
+    "short_name": "Hedera",
+    "version": "0.9.24",
+    "description": "This extension makes micropayments from your Hedera account",
+    "icons": {
+        "128": "icons/Ext-Icon-Configured-128x128.png",
+        "48": "icons/Ext-Icon-Configured-48x48.png",
+        "32": "icons/Ext-Icon-Configured-32x32.png",
+        "16": "icons/Ext-Icon-Configured-16x16.png"
+    },
+    "default_locale": "en",
+    "browser_action": {
+        "default_icon": "icons/Ext-Icon-Configured-16x16.png",
+        "default_popup": "html/account-overview.html"
+    },
+    "background": {
+        "scripts": ["javascript/background.js"],
+        "persistent": false
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["javascript/content.js"]
+        }
+    ],
+    "permissions": [
+        "tabs",
+        "storage",
+        "notifications",
+        "contextMenus",
+        "activeTab",
+        "cookies",
+        "<all_urls>"
+    ],
+    "web_accessible_resources": [
+        "html/banner.html",
+        "html/css/hedera-style.css",
+        "icons/icon16.png"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

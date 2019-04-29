@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Account Linking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/hedera.css" />
+    <link rel="stylesheet" type="text/css" href="css/notification.css" />
+    <link rel="stylesheet" type="text/css" href="css/account-link.css" />
+    <script src="../javascript/account-link.js"></script>
+</head>
+
+<body id="hedera">
+    <div class="container">
+        <div class="top col-12">
+            <img class="rounded-circle" src="images/Icon-Hbar-White.png" alt="" width="35" height="35" />
+        </div>
+
+        <div class="col-12 pt-3">
+            <div id="pairingInstruction" class="small">
+                Export your Hedera Wallet keys by following
+                <a id="pairingLink"
+                    href="https://help.hedera.com/hc/en-us/articles/360000664818-How-do-I-connect-my-Hedera-wallet-to-the-HBAR-micropayments-Chrome-extension"
+                    target="_blank">these instructions</a>. Devices must be on the same wifi network. Alternatively,
+                share a mobile connection by tethering or hotspot.
+            </div>
+            <div class="title" id="qrcode"></div>
+            <form class="title" name="pinForm" id="pinForm">
+                <label for="pin">Enter Activation Code:</label>
+                <input class="form-control" type="text" name="pinInput" />
+                <button id="getAccountBalanceButton" class="btn btn-normal btn-block">
+                    Complete Pairing
+                    <img src="" data-src="" alt="" width="16px" />
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

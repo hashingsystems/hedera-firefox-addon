@@ -1,0 +1,21 @@
+#hedera #recent-transactions ul {
+  font-size: 60%;
+  font-weight: lighter;
+  display: block;
+  list-style: none;
+  overflow-y: auto;
+  max-height: 290px;
+  padding-left: 10px;
+}
+
+#hedera #recent-transactions ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #979797;
+}
+
+#hedera #recent-transactions span {
+  display: inline-block;
+  width: 30%;
+  vertical-align: middle;
+  text-align: center;
+}
