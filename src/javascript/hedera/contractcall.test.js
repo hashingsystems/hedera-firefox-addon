@@ -1,7 +1,7 @@
 import Hedera from '../hedera'
 import addressbook from '../hedera/address-book'
 import dotenv from 'dotenv'
-import TransactionBody from '../../pbweb/TransactionBody_pb'
+import { TransactionBody } from '../../pbweb/TransactionBody_pb'
 import io from 'socket.io-client'
 import debug from 'debug'
 import { enumKeyByValue } from './utils'
@@ -9,12 +9,47 @@ import { AbiCoder } from 'web3-eth-abi'
 import { JSDOM } from 'jsdom'
 import path from 'path'
 import i from '../hedera/internal'
+import { doesNotReject } from 'assert'
 
 const log = debug('test:contractcall')
 
 const Tx = TransactionBody.DataCase
 
-test('contractcall test', async () => {
+let socket
+
+let paymentServer = process.env.TEST_PAYMENTSERVER
+
+beforeEach(done => {
+    if (paymentServer === undefined) {
+        done()
+        return
+    }
+    // Setup
+    // Do not hardcode server port and address, square brackets are used for IPv6
+    socket = io.connect(paymentServer, {
+        'reconnection delay': 0,
+        'reopen delay': 0,
+        'force new connection': true,
+        transports: ['websocket']
+    })
+    socket.on('connect', () => {
+        done()
+    })
+})
+
+afterEach(done => {
+    if (paymentServer === undefined) {
+        done()
+        return
+    }
+    // Cleanup
+    if (socket.connected) {
+        socket.disconnect()
+    }
+    done()
+})
+
+test('contractcall test', async done => {
     const testaccount = {
         accountID: process.env.TEST_ACCOUNTID,
         publicKey: process.env.TEST_PUBLICKEY,
@@ -81,17 +116,22 @@ test('contractcall test', async () => {
     const contract = '0.0.1604' // hard-coded contract id. change this to the one Nik uses
 
     // contract, gas, amount, sender, functionParams, memo, fee
-    let q = client
+    let tx = client
         .contractCall(contract, gas, amount, sender, functionParams, '', fee)
         .prepare()
 
+    if (paymentServer === undefined) {
+        done()
+        return
+    }
     // Enable this and invoke against a development payment server to proxy the call to Hedera
-    // const CONTRACTCALL = enumKeyByValue(Tx, Tx.CONTRACTCALL)
-    // const socket = io.connect('http://localhost:8099')
-    // socket.on('connect', function() {
-    //     socket.binary(true).emit(CONTRACTCALL, q.data)
-    //     socket.on(`${CONTRACTCALL}_RESPONSE`, async function(res) {
-    //         log('res', res)
-    //     })
-    // })
+    const CONTRACTCALL = enumKeyByValue(Tx, Tx.CONTRACTCALL)
+    socket = io.connect(paymentServer)
+    socket.on('connect', function() {
+        socket.binary(true).emit(CONTRACTCALL, tx.data)
+        socket.on(`${CONTRACTCALL}_RESPONSE`, async function(res) {
+            log('res', res)
+        })
+        done()
+    })
 })
