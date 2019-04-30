@@ -41,7 +41,7 @@ function contractCall(
     body.setContractid(i.contractIDFromString(contract))
     body.setGas(parseInt(gas, 10))
     body.setAmount(parseInt(amount, 10))
-    body.setFunctionparameters(functionParams)
+    body.setFunctionparameters(Uint8Array.from(functionParams))
 
     let txID = new TransactionID()
     txID.setAccountid(i.accountIDFromString(sender))
