@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Hedera Browser Extension",
     "short_name": "Hedera",
-    "version": "0.9.24",
+    "version": "0.9.25",
     "description": "This extension makes micropayments from your Hedera account",
     "icons": {
         "128": "icons/Ext-Icon-Configured-128x128.png",
@@ -32,7 +32,9 @@
         "contextMenus",
         "activeTab",
         "cookies",
-        "<all_urls>"
+        "https://hash-hash.info/*",
+        "https://dailytimestamp.com/*",
+        "https://thetimesta.mp/**"
     ],
     "web_accessible_resources": [
         "html/banner.html",
