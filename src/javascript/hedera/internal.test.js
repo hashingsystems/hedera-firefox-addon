@@ -1,5 +1,5 @@
-import account from './testdata/account.json'
-import account2 from './testdata/account2.json'
+// import account from './testdata/account.json'
+// import account2 from './testdata/account2.json'
 // import account3 from './testdata/account3.json'
 // import accountnew from './testdata/accountnew.json'
 // import accountcorrect from './testdata/accountcorrect.json'

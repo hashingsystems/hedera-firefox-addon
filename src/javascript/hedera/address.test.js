@@ -68,7 +68,8 @@ test('node addr test env', async () => {
     submissionNode = '0.0.3'
     node = address.getNodeAddr(submissionNode)
     expect(node.account).toEqual('0.0.3')
-    expect(node.address).toEqual('testnet.hedera.com:50003')
+    const expected = 'testnet.hedera.com:'
+    expect(node.address).toEqual(expect.stringContaining(expected))
 
     expect(() => {
         submissionNode = '0.0.2' // treasury's node
@@ -99,6 +100,6 @@ test('node addr test env', async () => {
     submissionNode = null // expect random if mock math uncommented out
     node = address.getNodeAddr(submissionNode)
     expect(node.account).toEqual('0.0.3')
-    expect(node.address).toEqual('testnet.hedera.com:50003')
+    expect(node.address).toEqual(expect.stringContaining(expected))
     log(node)
 })

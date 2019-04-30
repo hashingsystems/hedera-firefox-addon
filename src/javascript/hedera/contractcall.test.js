@@ -1,6 +1,7 @@
 import Hedera from '../hedera'
 import addressbook from '../hedera/address-book'
-import testaccount from '../hedera/testdata/account.json'
+import dotenv from 'dotenv'
+// import testaccount from '../hedera/testdata/account.json'
 import TransactionBody from '../../pbweb/TransactionBody_pb'
 import io from 'socket.io-client'
 import debug from 'debug'
@@ -15,6 +16,22 @@ const log = debug('test:contractcall')
 const Tx = TransactionBody.DataCase
 
 test('contractcall test', async () => {
+    const testaccount = {
+        accountID: process.env.TEST_ACCOUNTID,
+        publicKey: process.env.TEST_PUBLICKEY,
+        privateKey: process.env.TEST_PRIVATEKEY,
+        solidityAddress: process.env.TEST_SOLIDITYADDRESS
+    }
+
+    // skip this test completely if developer did not prepare a test account in .env
+    if (
+        testaccount.accountID === undefined ||
+        testaccount.publicKey === undefined ||
+        testaccount.privateKey === undefined
+    ) {
+        return
+    }
+
     const node = addressbook['test'].ADDRESS_BOOK[0]
     const nodeAccount = Object.keys(node)[0]
     const nodeAddress = node[nodeAccount]
@@ -33,7 +50,9 @@ test('contractcall test', async () => {
     let solidityAddress = i.solidityAddressFromAccountIDString(sender)
     // the converted solidityAddress should be equal to
     // what we put in our testaccount (testdata/account.json)
-    expect(solidityAddress).toEqual(testaccount.solidityAddress)
+    if (testaccount.solidityAddress !== undefined) {
+        expect(solidityAddress).toEqual(testaccount.solidityAddress)
+    }
 
     let client = hedera.withOperator(keypair, sender).connect()
 
