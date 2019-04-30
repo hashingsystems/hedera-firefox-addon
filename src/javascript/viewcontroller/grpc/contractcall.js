@@ -2,7 +2,7 @@ import Hedera from '../../hedera'
 import { enumKeyByValue } from '../../hedera/utils'
 import io from 'socket.io-client'
 import { TransactionBody } from '../../../pbweb/TransactionBody_pb'
-import getNodeAddr from '../../hedera/address'
+import nodeAddress from '../../hedera/address'
 import { AccountManager } from '../../models'
 import { AbiCoder } from 'web3-eth-abi'
 import i from '../../hedera/internal'
@@ -39,7 +39,7 @@ async function getContractCallController(contractTag, urlString) {
     let paymentServer = contractTag.paymentserver
     let submissionNode = contractTag.submissionNode // which is null
     // prepare (and sign) the tx object to be forwarded back to Nik
-    let node = getNodeAddr(submissionNode)
+    let node = nodeAddress.getNodeAddr(submissionNode)
     log('node', node)
 
     let am = await new AccountManager().init()
