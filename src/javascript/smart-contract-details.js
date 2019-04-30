@@ -38,10 +38,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     // assign the params
     if (contractTag !== undefined) {
         let params = contractTag.params
-        let amount = params[1]
         if (transactionCostEl !== undefined) {
-            let amountInUsd = tinyBarsToDollarsCurr(parseInt(amount))
-            let amountInHbar = tinyBarsToHBarsCurr(parseInt(amount))
+            let amountInUsd = tinyBarsToDollarsCurr(200000)
+            let amountInHbar = tinyBarsToHBarsCurr(200000)
             document.getElementById('transaction-cost').innerHTML =
                 amountInUsd + ', ' + amountInHbar
         }
@@ -52,6 +51,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById(
                 'property-location'
             ).innerHTML = propertyLocation
+        }
+        
+        let starPrice = params[1]
+        if (starPrice !== undefined) {
+            let purchasedPriceInUsd = tinyBarsToDollarsCurr(parseInt(starPrice) + 200000)
+            let purchasedPriceInHbar = tinyBarsToHBarsCurr(parseInt(starPrice) + 200000)
+            document.getElementById('purchased-price').innerHTML =
+            purchasedPriceInUsd + ', ' + purchasedPriceInHbar
         }
 
         if (acceptButtonEl !== undefined) {
