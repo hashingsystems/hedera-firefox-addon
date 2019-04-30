@@ -54,6 +54,11 @@ export default {
                 toType: 'dir'
             },
             {
+                from: 'src/icons',
+                to: '../icons',
+                toType: 'dir'
+            },
+            {
                 from: 'src/_locales',
                 to: '../_locales',
                 toType: 'dir'
