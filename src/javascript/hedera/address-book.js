@@ -39,21 +39,21 @@ export default {
     staging: {
         ADDRESS_BOOK: [
             {
-                '0.0.3': 'testnet.hedera.com:50003'
+                '0.0.3': 'testnet.hedera.com:50006'
             }
         ]
     },
     development: {
         ADDRESS_BOOK: [
             {
-                '0.0.3': 'testnet.hedera.com:50003'
+                '0.0.3': 'testnet.hedera.com:50006'
             }
         ]
     },
     test: {
         ADDRESS_BOOK: [
             {
-                '0.0.3': 'testnet.hedera.com:50003'
+                '0.0.3': 'testnet.hedera.com:50006'
             }
         ]
     }
