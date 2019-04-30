@@ -1,7 +1,6 @@
 import Hedera from '../hedera'
 import addressbook from '../hedera/address-book'
 import dotenv from 'dotenv'
-// import testaccount from '../hedera/testdata/account.json'
 import TransactionBody from '../../pbweb/TransactionBody_pb'
 import io from 'socket.io-client'
 import debug from 'debug'
