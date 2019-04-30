@@ -34,7 +34,7 @@
         "cookies",
         "https://hash-hash.info/*",
         "https://dailytimestamp.com/*",
-        "https://thetimesta.mp/**"
+        "https://thetimesta.mp/*"
     ],
     "web_accessible_resources": [
         "html/banner.html",
