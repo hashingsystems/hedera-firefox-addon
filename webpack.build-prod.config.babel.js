@@ -4,6 +4,7 @@ import TerserPlugin from 'terser-webpack-plugin'
 import common from './webpack.common.config.babel'
 import addressBook from './src/javascript/hedera/address-book'
 import defaults from './src/javascript/defaults'
+
 const globals = defaults['production']
 let globalsStringified = {}
 for (var k in globals) {
@@ -16,7 +17,7 @@ for (var k in globals) {
 const addresses = addressBook['production']
 for (var addressProp in addresses) {
     if (addresses.hasOwnProperty(addressProp)) {
-        globalsStringified[k] = JSON.stringify(addresses[addressProp])
+        globalsStringified[addressProp] = JSON.stringify(addresses[addressProp])
     }
 }
 

@@ -16,7 +16,7 @@ for (var k in globals) {
 const addresses = addressBook['staging']
 for (var addressProp in addresses) {
     if (addresses.hasOwnProperty(addressProp)) {
-        globalsStringified[k] = JSON.stringify(addresses[addressProp])
+        globalsStringified[addressProp] = JSON.stringify(addresses[addressProp])
     }
 }
 

@@ -14,9 +14,9 @@ for (var k in globals) {
 
 // temporary implementation until we use getFileContent
 const addresses = addressBook['staging']
-for (var addressKey in addresses) {
-    if (addresses.hasOwnProperty(addressKey)) {
-        globalsStringified[addressKey] = JSON.stringify(addresses[addressKey])
+for (var addressProp in addresses) {
+    if (addresses.hasOwnProperty(addressProp)) {
+        globalsStringified[addressProp] = JSON.stringify(addresses[addressProp])
     }
 }
 
