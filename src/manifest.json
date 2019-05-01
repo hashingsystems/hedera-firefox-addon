@@ -32,14 +32,8 @@
         "contextMenus",
         "activeTab",
         "cookies",
-        "https://hash-hash.info/*",
-        "https://dailytimestamp.com/*",
-        "https://thetimesta.mp/*"
+        "<all_urls>"
     ],
-    "web_accessible_resources": [
-        "html/banner.html",
-        "html/css/hedera-style.css",
-        "icons/icon16.png"
-    ],
+    "web_accessible_resources": ["html/banner.html", "icons/icon16.png"],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
