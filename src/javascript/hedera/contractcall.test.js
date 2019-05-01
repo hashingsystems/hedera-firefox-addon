@@ -11,6 +11,7 @@ import path from 'path'
 import i from '../hedera/internal'
 import { doesNotReject } from 'assert'
 
+// DEBUG=test:contractcall npm test src/javascript/hedera/contractcall.test.js
 const log = debug('test:contractcall')
 
 const Tx = TransactionBody.DataCase
@@ -33,6 +34,10 @@ beforeEach(done => {
         transports: ['websocket']
     })
     socket.on('connect', () => {
+        done()
+    })
+    socket.on('connect_error', () => {
+        log('No socketio server available during tests. Skip.')
         done()
     })
 })
@@ -131,6 +136,12 @@ test('contractcall test', async done => {
     // Enable this and invoke against a development payment server to proxy the call to Hedera
     const CONTRACTCALL = enumKeyByValue(Tx, Tx.CONTRACTCALL)
     socket = io.connect(paymentServer)
+
+    socket.on('connect_error', function() {
+        log('No socketio server available during tests. Skip.')
+        done()
+    })
+
     socket.on('connect', function() {
         socket.binary(true).emit(CONTRACTCALL, tx.data)
         socket.on(`${CONTRACTCALL}_RESPONSE`, async function(res) {
