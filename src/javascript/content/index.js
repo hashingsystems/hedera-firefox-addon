@@ -12,6 +12,7 @@ const port = chrome.runtime.connect({
 
 async function contentListener(msg, sender, sendResponse) {
     log(msg)
+    log(window.location.hostname)
     // check that websites contain hedera-tag
     let micropaymentTag = Hedera.micropayment(document, chrome.runtime.id)
     let contractTag = Hedera.contract(document, chrome.runtime.id)
@@ -26,7 +27,8 @@ async function contentListener(msg, sender, sendResponse) {
                 "Hang tight! We're redirecting you to the steps on setting up your Hedera Browser Extension."
             await alertBanner(alertString, false, false)
             setTimeout(() => {
-                window.location.href = '/no-account'
+                // msg.redirect defaults to /no-account
+                window.location.href = msg.redirect
             }, 6000)
         }
     }
@@ -71,13 +73,16 @@ async function contentListener(msg, sender, sendResponse) {
 
     if (msg.type === 'redirect') {
         log(msg.type)
+        log(msg)
         setTimeout(() => {
-            window.location.href = `/non-paying-account`
+            // defaults to /non-paying-account ("paywall")
+            window.location.href = msg.redirect
         }, 4000)
     }
 
     if (msg.type === 'redirect-homepage') {
-        window.location.href = '/'
+        // defaults to /
+        window.location.href = msg.redirect
     }
 
     // If the message is raise-threshold

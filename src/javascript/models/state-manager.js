@@ -16,10 +16,6 @@ const log = debug('all:state-manager')
  * @const errMsgURL error string
  */
 const errMsgURL = 'Provide a URL object'
-/**
- * @const nonPayingAccountPath non paying account redirect path
- */
-const nonPayingAccountPath = '/non-paying-account'
 
 /**
  *
@@ -54,6 +50,19 @@ class StateManager {
         this.rule = statusRule[name] // preference
         this.computedLimit = await hostRule.getCurrentComputedLimit() // currThr
         this.tag = tag // micropayment tag
+        // default redirect urls
+        this.redirect = {
+            nonPayingAccount: '/non-paying-account',
+            noAccount: '/no-account',
+            homePage: '/'
+        }
+        if (this.tag !== undefined && this.tag !== null) {
+            if (this.tag.redirect !== undefined) {
+                // if publisher's micropayment tag has custom redirect url paths specified,
+                // use them instead
+                this.redirect = JSON.parse(this.tag.redirect)
+            }
+        }
         log('init logic execution completed', this)
         return this
     }
@@ -128,19 +137,26 @@ class StateManager {
             }
         }
         // other pages
-        if (currThr < requestedPayment && urlPath !== nonPayingAccountPath) {
+        if (
+            currThr < requestedPayment &&
+            urlPath !== this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.BLACK,
                 banner: true,
                 msg: {
                     type: 'redirect',
                     currThr,
-                    requestedPayment
+                    requestedPayment,
+                    redirect: this.redirect.nonPayingAccount
                 }
             }
             return state
         }
-        if (currThr >= requestedPayment && urlPath !== nonPayingAccountPath) {
+        if (
+            currThr >= requestedPayment &&
+            urlPath !== this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.GREEN,
                 banner: false,
@@ -153,7 +169,10 @@ class StateManager {
             return state
         }
         // non-paying-account page
-        if (currThr < requestedPayment && urlPath === nonPayingAccountPath) {
+        if (
+            currThr < requestedPayment &&
+            urlPath === this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.BLACK,
                 banner: true,
@@ -165,14 +184,18 @@ class StateManager {
             }
             return state
         }
-        if (currThr >= requestedPayment && urlPath === nonPayingAccountPath) {
+        if (
+            currThr >= requestedPayment &&
+            urlPath === this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.GREEN,
                 banner: false,
                 msg: {
                     type: 'redirect-homepage',
                     currThr,
-                    requestedPayment
+                    requestedPayment,
+                    redirect: this.redirect.home
                 }
             }
             return state
@@ -210,32 +233,43 @@ class StateManager {
             return state
         }
         // other pages
-        if (currThr < requestedPayment && urlPath !== nonPayingAccountPath) {
+        if (
+            currThr < requestedPayment &&
+            urlPath !== this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.RED,
                 banner: true,
                 msg: {
                     type: 'redirect',
                     currThr,
-                    requestedPayment
+                    requestedPayment,
+                    redirect: this.redirect.nonPayingAccount
                 }
             }
             return state
         }
-        if (currThr >= requestedPayment && urlPath !== nonPayingAccountPath) {
+        if (
+            currThr >= requestedPayment &&
+            urlPath !== this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.RED,
                 banner: true,
                 msg: {
                     type: 'redirect',
                     currThr,
-                    requestedPayment
+                    requestedPayment,
+                    redirectUrl: this.redirect.nonPayingAccount
                 }
             }
             return state
         }
         // non-paying-account page
-        if (currThr < requestedPayment && urlPath === nonPayingAccountPath) {
+        if (
+            currThr < requestedPayment &&
+            urlPath === this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.RED,
                 banner: true,
@@ -248,7 +282,10 @@ class StateManager {
             return state
         }
 
-        if (currThr >= requestedPayment && urlPath === nonPayingAccountPath) {
+        if (
+            currThr >= requestedPayment &&
+            urlPath === this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.RED,
                 banner: true,
@@ -292,19 +329,26 @@ class StateManager {
             }
         }
         // other pages
-        if (currThr < requestedPayment && urlPath !== nonPayingAccountPath) {
+        if (
+            currThr < requestedPayment &&
+            urlPath !== this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.RED,
                 banner: true,
                 msg: {
                     type: 'redirect',
                     currThr,
-                    requestedPayment
+                    requestedPayment,
+                    redirect: this.redirect.nonPayingAccount
                 }
             }
             return state
         }
-        if (currThr >= requestedPayment && urlPath !== nonPayingAccountPath) {
+        if (
+            currThr >= requestedPayment &&
+            urlPath !== this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.GREEN,
                 banner: false,
@@ -317,7 +361,10 @@ class StateManager {
             return state
         }
         // non-paying-account page
-        if (currThr < requestedPayment && urlPath === nonPayingAccountPath) {
+        if (
+            currThr < requestedPayment &&
+            urlPath === this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.RED,
                 banner: true,
@@ -329,12 +376,16 @@ class StateManager {
             }
             return state
         }
-        if (currThr >= requestedPayment && urlPath === nonPayingAccountPath) {
+        if (
+            currThr >= requestedPayment &&
+            urlPath === this.redirect.nonPayingAccount
+        ) {
             state = {
                 icon: k.ICON_STATE.GREEN,
                 banner: false,
                 msg: {
-                    type: 'redirect-homepage'
+                    type: 'redirect-homepage',
+                    redirect: this.redirect.homePage
                 }
             }
             return state
