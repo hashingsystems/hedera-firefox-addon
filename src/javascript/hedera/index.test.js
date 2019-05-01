@@ -12,7 +12,11 @@ test('When document object is invalid', () => {
 
 test('When hedera-micropayment tag is VALID', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample1.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample1_valid.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
     let result = Hedera.micropayment(document)
@@ -36,7 +40,11 @@ test('When hedera-micropayment tag is VALID', async () => {
 
 test('When hedera-micropayment tag is INVALID - does not contain recipientList', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample2.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample2_invalid_recipientlist_empty.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     // get the document object that we can operate on
     let document = dom.window.document
@@ -48,7 +56,11 @@ test('When hedera-micropayment tag is INVALID - does not contain recipientList',
 
 test('When hedera-micropayment tag is INVALID - recipientList amount is empty', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample3.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample3_invalid_recipientlist_amount_empty.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
     let result = Hedera.micropayment(document)
@@ -57,7 +69,11 @@ test('When hedera-micropayment tag is INVALID - recipientList amount is empty', 
 
 test('When hedera-micropayment tag is INVALID - recipientList accountID is invalid', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample4.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample4_invalid_accountid.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
     let result = Hedera.micropayment(document)
@@ -66,7 +82,11 @@ test('When hedera-micropayment tag is INVALID - recipientList accountID is inval
 
 test('When hedera-micropayment tag is INVALID - accountID is invalid', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample4.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample4_invalid_accountid.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
     let result = Hedera.micropayment(document)
@@ -75,7 +95,11 @@ test('When hedera-micropayment tag is INVALID - accountID is invalid', async () 
 
 test('When hedera-micropayment tag is INVALID - submissionNode account is invalid', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample5.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample5_invalid_submissionnode.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
     let result = Hedera.micropayment(document)
@@ -84,7 +108,11 @@ test('When hedera-micropayment tag is INVALID - submissionNode account is invali
 
 test('When hedera-micropayment tag is VALID - paymentserver is valid', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample6.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample6_valid_paymentserver.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
     let result = Hedera.micropayment(document)
@@ -107,7 +135,11 @@ test('When hedera-micropayment tag is VALID - paymentserver is valid', async () 
 
 test('When hedera-micropayment tag is INVALID - paymentserver is invalid', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
-    let testFile = path.join(__dirname, 'testdata', 'publisherexample7.html')
+    let testFile = path.join(
+        __dirname,
+        'testdata',
+        'publisherexample7_invalid_paymentserver.html'
+    )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
     let result = Hedera.micropayment(document)

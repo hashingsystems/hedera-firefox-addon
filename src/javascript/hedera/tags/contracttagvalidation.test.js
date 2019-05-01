@@ -12,7 +12,7 @@ test('When hedera-contract tag is VALID', async () => {
         __dirname,
         '..',
         'testdata',
-        'contractcallexample1.html'
+        'contractcallexample1_valid.html'
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
