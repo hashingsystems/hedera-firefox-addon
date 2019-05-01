@@ -106,10 +106,10 @@ test('contractcall test', async done => {
     log(result.params)
 
     const abiCoder = new AbiCoder()
-    const functionParams = abiCoder.encodeFunctionCall(
-        result.abi,
-        result.params
-    )
+    const functionParams = abiCoder
+        .encodeFunctionCall(result.abi, result.params)
+        .slice(2) // additionally remove the first byte "0x" which denotes a hex string as it fails in other languages
+
     const gas = result.params[2]
     const amount = gas
     const fee = 100000

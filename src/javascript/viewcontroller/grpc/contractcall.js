@@ -68,7 +68,11 @@ async function getContractCallController(contractTag, urlString) {
     params.unshift(address)
 
     const abiCoder = new AbiCoder()
-    const functionParams = abiCoder.encodeFunctionCall(abi, params)
+    // Additionally remove the first byte "0x" with `slice(2)`
+    // This first bye "0x" denotes a hex string
+    // because the extra "0x" byte deserializes incorrectly in other languages
+    // and causes transaction to fail on Hedera
+    const functionParams = abiCoder.encodeFunctionCall(abi, params).slice(2)
     const gas = 100000
     log('GASSSS', gas)
 
