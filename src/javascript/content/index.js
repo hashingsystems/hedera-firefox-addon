@@ -65,22 +65,6 @@ async function contentListener(msg, sender, sendResponse) {
         }
     }
 
-    // If the received message has the expected format for contract call
-    if (msg.type === 'hedera-contract') {
-        log(msg.type)
-        if (contractTag !== null) {
-            if (contractTag === false) {
-                // false, because the hedera-contract is invalid
-                let alertString = `Invalid hedera-contract tag provided.`
-                await alertBanner(alertString, false, false)
-            } else {
-                //valid object
-                log('sendResponse with contractTag')
-                sendResponse(contractTag)
-            }
-        }
-    }
-
     if (msg.type === 'publisher-error') {
         log(msg.type)
     }
