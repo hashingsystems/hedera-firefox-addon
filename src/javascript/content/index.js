@@ -65,10 +65,6 @@ async function contentListener(msg, sender, sendResponse) {
         }
     }
 
-    if (msg.type === 'publisher-error') {
-        log(msg.type)
-    }
-
     if (msg.type === 'redirect') {
         log(msg.type)
         setTimeout(() => {
