@@ -113,7 +113,7 @@ const validateRedirect = redirect => {
     }
 
     let keysInRedirectUrls = Object.keys(redirectUrls)
-    let acceptableKeys = ['nonPayingAccount', 'home', 'noAccount']
+    let acceptableKeys = ['nonPayingAccount', 'homePage', 'noAccount']
     if (keysInRedirectUrls.length > acceptableKeys.length) {
         return undefined
     }
