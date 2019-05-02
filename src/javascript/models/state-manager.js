@@ -60,7 +60,7 @@ class StateManager {
             if (this.tag.redirect !== undefined) {
                 // if publisher's micropayment tag has custom redirect url paths specified,
                 // use them instead
-                this.redirect = JSON.parse(this.tag.redirect)
+                this.redirect = this.tag.redirect
             }
         }
         log('init logic execution completed', this)
