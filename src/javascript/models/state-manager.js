@@ -25,7 +25,7 @@ class StateManager {
     /**
      * @constructor
      */
-    constructor() {}
+    constructor() { }
     // url must be a URL object
     // tag refers to the Hedera micropayment tag object
     /**
@@ -260,7 +260,7 @@ class StateManager {
                     type: 'redirect',
                     currThr,
                     requestedPayment,
-                    redirectUrl: this.redirect.nonPayingAccount
+                    redirect: this.redirect.nonPayingAccount
                 }
             }
             return state
