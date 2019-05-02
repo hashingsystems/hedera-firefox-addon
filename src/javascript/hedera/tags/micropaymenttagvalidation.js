@@ -91,6 +91,50 @@ const validateContentType = contentType => {
     }
 }
 
+const validateRedirect = redirect => {
+    log('validateRedirect')
+
+    if (redirect === undefined) {
+        return undefined
+    }
+
+    let currentUrl
+    try {
+        currentUrl = new URL(window.location.href)
+    } catch (e) {
+        return undefined
+    }
+
+    let redirectUrls
+    try {
+        redirectUrls = JSON.parse(redirect)
+    } catch (e) {
+        return undefined
+    }
+
+    let keysInRedirectUrls = Object.keys(redirectUrls)
+    let acceptableKeys = ['nonPayingAccount', 'homePage', 'noAccount']
+    if (keysInRedirectUrls.length > acceptableKeys.length) {
+        return undefined
+    }
+
+    for (let i = 0; i < keysInRedirectUrls.length; i++) {
+        let keyName = keysInRedirectUrls[i]
+        if (!acceptableKeys.includes(keyName)) {
+            return undefined
+        }
+        // construct new url to make sure the provided redirectUrl is valid
+        try {
+            new URL(currentUrl.origin + redirectUrls[keyName])
+        } catch (e) {
+            return undefined
+        }
+    }
+
+    // validates completely
+    return redirectUrls
+}
+
 const validate = (document, currentExtensionId) => {
     // Something is wrong with the document object, return false
     if (document === null || document === undefined) {
@@ -131,6 +175,9 @@ const validate = (document, currentExtensionId) => {
         return false
     }
 
+    // redirect is { "nonPayingAccount": "/somecustomurlpath", "home": "/somecustomurlpath2", "noAccount": "/somecustomurlpath3"}
+    let redirect = validateRedirect(tags[0].dataset.redirect)
+
     // All good, return our parsed hedera-micropayment tag as a json object
     log('hedera-micropayment validated')
     return {
@@ -141,7 +188,8 @@ const validate = (document, currentExtensionId) => {
         time: tags[0].dataset.time, // optional parameter
         contentID: tags[0].dataset.contentid, // id of the content
         memo: tags[0].dataset.memo, // optional memo field
-        type: tags[0].dataset.type // Type of content. Can be article, video or download
+        type: tags[0].dataset.type, // Type of content. Can be article, video or download
+        redirect // optional custom redirect urls
     }
 }
 

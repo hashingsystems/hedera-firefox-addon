@@ -9,7 +9,6 @@ import { AbiCoder } from 'web3-eth-abi'
 import { JSDOM } from 'jsdom'
 import path from 'path'
 import i from '../hedera/internal'
-import { doesNotReject } from 'assert'
 
 // DEBUG=test:contractcall npm test src/javascript/hedera/contractcall.test.js
 const log = debug('test:contractcall')

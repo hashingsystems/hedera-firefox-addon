@@ -26,7 +26,8 @@ async function contentListener(msg, sender, sendResponse) {
                 "Hang tight! We're redirecting you to the steps on setting up your Hedera Browser Extension."
             await alertBanner(alertString, false, false)
             setTimeout(() => {
-                window.location.href = '/no-account'
+                // msg.redirect defaults to /no-account
+                window.location.href = msg.redirect
             }, 6000)
         }
     }
@@ -66,14 +67,17 @@ async function contentListener(msg, sender, sendResponse) {
     }
 
     if (msg.type === 'redirect') {
-        log(msg.type)
+        log(msg.type, msg.redirect)
         setTimeout(() => {
-            window.location.href = `/non-paying-account`
+            // defaults to /non-paying-account ("paywall")
+            window.location.href = msg.redirect
         }, 4000)
     }
 
     if (msg.type === 'redirect-homepage') {
-        window.location.href = '/'
+        log(msg.type, msg.redirect)
+        // defaults to /
+        window.location.href = msg.redirect
     }
 
     // If the message is raise-threshold

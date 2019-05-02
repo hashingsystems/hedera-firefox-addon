@@ -34,6 +34,7 @@ test('When hedera-micropayment tag is VALID', async () => {
         contentID: 'test1',
         memo: 'test1',
         type: 'article',
+        redirect: { nonPayingAccount: '/nomicropaymentreceived.html' },
         extensionId: 'pggademcllgdajmghcgeidpcbllikmcp'
     })
 })
@@ -129,7 +130,11 @@ test('When hedera-micropayment tag is VALID - paymentserver is valid', async () 
         contentID: 'test1',
         memo: 'test1',
         type: 'article',
-        extensionId: 'ajeohoociaeemadgmpfdkcbhmloppohn'
+        extensionId: 'ajeohoociaeemadgmpfdkcbhmloppohn',
+        redirect: {
+            nonPayingAccount: '/nomicropaymentreceived.html',
+            homePage: '/customhomepage'
+        }
     })
 })
 
