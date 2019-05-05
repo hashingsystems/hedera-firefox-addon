@@ -31,10 +31,10 @@
                 "http://localhost:8099/*",
                 "http://localhost:9000/*",
                 "http://localhost:9090/*",
+                "http://wordpress.thetimesta.mp/*",
+                "https://wordpress.thetimesta.mp/*",
                 "http://*.dailytimestamp.com/*",
                 "https://*.dailytimestamp.com/*",
-                "http://*.thetimsta.mp/*",
-                "https://*.thetimsta.mp/*",
                 "http://*.hash-hash.info/*",
                 "https://*.hash-hash.info/*"
             ],
