@@ -73,14 +73,14 @@ export default {
     development: {
         ADDRESS_BOOK: [
             {
-                '0.0.3': 'testnet.hedera.com:50006'
+                '0.0.3': '35.237.207.94:50211'
             }
         ]
     },
     test: {
         ADDRESS_BOOK: [
             {
-                '0.0.3': 'testnet.hedera.com:50006'
+                '0.0.3': '35.237.207.94:50211'
             }
         ]
     }
