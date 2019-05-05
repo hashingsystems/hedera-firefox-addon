@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Hedera Browser Extension",
     "short_name": "Hedera",
-    "version": "0.9.26",
+    "version": "0.9.28",
     "description": "This extension makes micropayments from your Hedera account",
     "icons": {
         "128": "icons/Ext-Icon-Configured-128x128.png",
