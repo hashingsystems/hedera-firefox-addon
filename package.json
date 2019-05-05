@@ -1,6 +1,6 @@
 {
     "name": "hedera-browser-extension",
-    "version": "0.9.28",
+    "version": "0.9.29",
     "description": "Hedera browser extension to manage micropayments",
     "private": true,
     "dependencies": {
