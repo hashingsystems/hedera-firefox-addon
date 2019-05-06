@@ -17,32 +17,18 @@ const log = debug('all:background:controller')
 
 /**
  * check if we have a current user account
- * @returns {object | undefined}
+ * @returns {object}
  */
 const manageUser = async () => {
     let am = await new AccountManager().init()
     let currentAccount = await am.getCurrentAccountObject()
-
-    if (currentAccount === undefined) {
-        let accountID = currentAccount
-        let type = 'login'
-        let msg = {
-            type,
-            accountID
-        }
+    let type = 'login'
+    let msg = { type }
+    if (currentAccount !== undefined && currentAccount !== null) {
+        msg.accountID = currentAccount.accountID
         return { currentAccount, msg }
     }
-
-    if (currentAccount) {
-        let accountID = currentAccount.accountID
-        let type = 'login'
-        let msg = {
-            type,
-            accountID
-        }
-        return { currentAccount, msg }
-    }
-    return undefined
+    return { currentAccount: undefined, msg }
 }
 
 /**

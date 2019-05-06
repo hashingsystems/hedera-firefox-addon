@@ -15,7 +15,10 @@ const onActivatedListener = async () => {
     if (currTab === undefined) return
 
     let { currentAccount, msg } = await manageUser()
-    if (currentAccount === undefined) return
+    if (currentAccount === undefined) {
+        chrome.tabs.sendMessage(currTab.id, msg)
+        return
+    }
     chrome.tabs.sendMessage(currTab.id, msg)
 
     let url = new URL(currTab.url)
@@ -24,7 +27,7 @@ const onActivatedListener = async () => {
 
     await manageHostRule(url)
 
-    chrome.tabs.sendMessage(currTab.id, msg, async function(response) {
+    chrome.tabs.sendMessage(currTab.id, msg, async function (response) {
         // no hedera-tag catch chrome runtime error
         if (manageRuntimeError(response)) return
 

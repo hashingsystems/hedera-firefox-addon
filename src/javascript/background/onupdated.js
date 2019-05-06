@@ -19,15 +19,7 @@ const onUpdatedListener = async (tabID, info) => {
         let { currentAccount, msg } = await manageUser()
 
         if (currentAccount === undefined) {
-            if (msg.type === 'login') {
-                // If currentAccount is undefined, means user has not done the pairing
-                // so, send a message to our content to redirect user
-                chrome.tabs.sendMessage(currTab.id, {
-                    type: 'login',
-                    accountID: currentAccount
-                })
-            }
-            // currentAccount undefined and msg 'not-logged-in' users will fall through here
+            chrome.tabs.sendMessage(currTab.id, msg)
             return
         }
         chrome.tabs.sendMessage(currTab.id, msg)
