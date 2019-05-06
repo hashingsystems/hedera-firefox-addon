@@ -17,7 +17,6 @@ async function contentListener(msg, sender, sendResponse) {
     let contractTag = Hedera.contract(document, chrome.runtime.id)
 
     if (msg.type === 'login') {
-        let currentUrl = new URL(window.location.href)
         // if there is a micropayment tag on this web page and
         // the user is not already logged in (i.e. accountID being undefined),
         // we will trigger the alertBanner
@@ -31,7 +30,6 @@ async function contentListener(msg, sender, sendResponse) {
                 // msg.redirect defaults to /no-account
                 window.location.href = msg.redirect
             }, 6000)
-
         }
     }
 
