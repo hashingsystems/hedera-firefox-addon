@@ -104,7 +104,7 @@ async function contentListener(msg, sender, sendResponse) {
     // if the message is crypto-transfer
     if (msg.type === 'crypto-transfer') {
         log(msg.type)
-        await cryptoTransferController(msg.response, msg.url, port)
+        await cryptoTransferController(msg.response, port, msg.url)
     }
     return true
 }

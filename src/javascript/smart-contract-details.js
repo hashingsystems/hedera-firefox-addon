@@ -2,7 +2,11 @@ import { getLocalStorage } from './models/db'
 import { tabsQuery } from './chrome-promise'
 import { buttonState } from './ui-utils/buttons'
 import getContractCallController from './viewcontroller/grpc/contractcall'
-import { tinyBarsToDollarsCurr, tinyBarsToHBarsCurr, tinyBarsToDollarsUnit } from './hedera/currency'
+import {
+    tinyBarsToDollarsCurr,
+    tinyBarsToHBarsCurr,
+    tinyBarsToDollarsUnit
+} from './hedera/currency'
 import debug from 'debug'
 
 const log = debug('all:smart-contract-details')
@@ -55,14 +59,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         let starPrice = params[1]
         if (starPrice !== undefined) {
-            let purchasedPriceInUsd = tinyBarsToDollarsCurr(parseInt(starPrice) + 200000)
-            let purchasedPriceInHbar = tinyBarsToHBarsCurr(parseInt(starPrice) + 200000)
+            let purchasedPriceInUsd = tinyBarsToDollarsCurr(
+                parseInt(starPrice) + 200000
+            )
+            let purchasedPriceInHbar = tinyBarsToHBarsCurr(
+                parseInt(starPrice) + 200000
+            )
             document.getElementById('purchased-price').value =
                 purchasedPriceInUsd + ' / ' + purchasedPriceInHbar
         }
 
         if (acceptButtonEl !== undefined) {
-            acceptButtonEl.onclick = async function (e) {
+            acceptButtonEl.onclick = async function(e) {
                 e.preventDefault()
                 buttonState(acceptButtonEl, 'loading')
                 await getContractCallController(contractTag, urlString)

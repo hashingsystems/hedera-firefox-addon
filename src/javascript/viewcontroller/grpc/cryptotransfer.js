@@ -41,28 +41,33 @@ let count = 0
  *
  * cryptoTransfer handles all cryptoTransfer calls to Hedera using socketio
  * @param {*} micropayment micropayment is the micropayment tag object (hedera-micropayment) parsed from publisher's website
- * @param {*} urlString urlString is the current url
  * @param {*} port port is chrome's long-lived connection
+ * @param {string} urlString allows to keep track of the content that was read in indexed-db
  */
-async function cryptoTransferController(micropayment, urlString, port) {
+async function cryptoTransferController(micropayment, port, urlString) {
     log('Is our port object present?', port)
     // current account
     let am = await new AccountManager().init()
     let a = await am.getCurrentAccountObject()
     log('current account, a', a)
-    log('urlString is', urlString)
     // sender details
     let sender = a.accountID
     let keypair = a.keypair
     // recipient details
     let recipientList = micropayment.recipientList
     let amount = i.getSumOfTransfer(recipientList)
-    let memo = `${urlString}|${micropayment.memo}`
+    let memo = micropayment.memo
     let mps = micropayment.paymentServer
     let fee = TRANSACTION_FEE
     log('submissionNode parsed in is: ', micropayment.submissionNode)
-    log('submissionNode parsed in is recipientList: ',micropayment.recipientList)
-    log('submissionNodeparsed in is paymentserver: ',micropayment.paymentServer)
+    log(
+        'submissionNode parsed in is recipientList: ',
+        micropayment.recipientList
+    )
+    log(
+        'submissionNodeparsed in is paymentserver: ',
+        micropayment.paymentServer
+    )
     let submissionNode = micropayment.submissionNode
     // prepare (and sign) the tx object to be forwarded to micropayment-server
     let node = address.getNodeAddr(submissionNode)
