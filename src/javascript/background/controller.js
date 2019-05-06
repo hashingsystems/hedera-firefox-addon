@@ -23,15 +23,13 @@ const manageUser = async () => {
     let am = await new AccountManager().init()
     let currentAccount = await am.getCurrentAccountObject()
 
-    log("AM I HERE?", currentAccount)
     if (currentAccount === undefined) {
         let accountID = currentAccount
-        let type = 'not-logged-in'
+        let type = 'login'
         let msg = {
             type,
             accountID
         }
-        log("WHO AM I?", currentAccount)
         return { currentAccount, msg }
     }
 

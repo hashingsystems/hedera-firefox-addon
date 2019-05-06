@@ -16,25 +16,9 @@ async function contentListener(msg, sender, sendResponse) {
     let micropaymentTag = Hedera.micropayment(document, chrome.runtime.id)
     let contractTag = Hedera.contract(document, chrome.runtime.id)
 
-    if (msg.type === 'account-not-linked') {
-        if (micropaymentTag !== null && msg.accountID === undefined) {
-            log("DESTINATION:)", msg.type, "UNDEFINED", msg.accountID)
-            let redirectNoAccount = micropaymentTag.redirect.noAccount
-            // make sure that only if user has not linked the chrome extension to the wallet
-            // AND micropayment tag exist on DOM, trigger redirect no-account
-            let alertString =
-                "Hang tight! We're redirecting you to the steps on setting up your Hedera Browser Extension."
-            await alertBanner(alertString, false, false)
-            setTimeout(() => {
-                // msg.redirect defaults to /no-account
-                let blah = "https://hedera.com"
-                window.location.href = blah
-            }, 6000)
-        }
-    }
-
     if (msg.type === 'login') {
-        log(msg.type, msg.redirect)
+        let currentUrl = new URL(window.location.href)
+        let urlRedirect = currentUrl.origin + micropaymentTag.redirect.noAccount
         // if there is a micropayment tag on this web page and
         // the user is not already logged in (i.e. accountID being undefined),
         // we will trigger the alertBanner
@@ -44,7 +28,7 @@ async function contentListener(msg, sender, sendResponse) {
             await alertBanner(alertString, false, false)
             setTimeout(() => {
                 // msg.redirect defaults to /no-account
-                window.location.href = msg.redirect
+                window.location.href = urlRedirect
             }, 6000)
         }
     }
