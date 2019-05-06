@@ -17,7 +17,19 @@ const onUpdatedListener = async (tabID, info) => {
         if (currTab === undefined) return
 
         let { currentAccount, msg } = await manageUser()
-        if (currentAccount === undefined) return
+
+        if (currentAccount === undefined) {
+            if (msg.type === 'not-logged-in') {
+                // If currentAccount is undefined, means user has not done the pairing
+                // so, send a message to our content to redirect user
+                chrome.tabs.sendMessage(currTab.id, {
+                    type: 'account-not-linked',
+                    accountID: currentAccount
+                })
+            }
+            // currentAccount undefined and msg 'not-logged-in' users will fall through here
+            return
+        }
         chrome.tabs.sendMessage(currTab.id, msg)
 
         let url = new URL(currTab.url)
@@ -26,7 +38,7 @@ const onUpdatedListener = async (tabID, info) => {
 
         await manageHostRule(url)
 
-        chrome.tabs.sendMessage(currTab.id, msg, async function(response) {
+        chrome.tabs.sendMessage(currTab.id, msg, async function (response) {
             log('receive response', response)
             // catch chrome runtime error
             if (manageRuntimeError(response)) return
