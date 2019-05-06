@@ -22,14 +22,14 @@ async function contentListener(msg, sender, sendResponse) {
         // the user is not already logged in (i.e. accountID being undefined),
         // we will trigger the alertBanner
         if (micropaymentTag !== null && msg.accountID === undefined) {
-            let urlRedirect = currentUrl.origin + micropaymentTag.redirect.noAccount
+            msg.redirect = micropaymentTag.redirect.noAccount
             let alertString =
                 "Hang tight! We're redirecting you to the steps on setting up your Hedera Browser Extension."
 
             await alertBanner(alertString, false, false)
             setTimeout(() => {
                 // msg.redirect defaults to /no-account
-                window.location.href = urlRedirect
+                window.location.href = msg.redirect
             }, 6000)
 
         }
