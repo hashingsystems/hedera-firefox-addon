@@ -78,7 +78,9 @@ async function contentListener(msg, sender, sendResponse) {
     if (msg.type === 'redirect-homepage') {
         log(msg.type, msg.redirect)
         // defaults to /
-        window.location.href = msg.redirect
+        setTimeout(() => {
+            window.location.href = msg.redirect
+        }, 4000)
     }
 
     // If the message is raise-threshold

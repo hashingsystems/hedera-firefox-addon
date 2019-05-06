@@ -131,7 +131,23 @@ const validateRedirect = redirect => {
         }
     }
 
-    // validates completely
+    // validates completely, provide defaults
+    if (
+        redirectUrls.nonPayingAccount === undefined ||
+        redirectUrls.nonPayingAccount === ''
+    ) {
+        redirectUrls.nonPayingAccount = '/non-paying-account'
+    }
+
+    if (redirectUrls.noAccount === undefined || redirectUrls.noAccount === '') {
+        redirectUrls.noAccount = '/no-account'
+    }
+
+    if (redirectUrls.homePage === undefined || redirectUrls.homePage === '') {
+        redirectUrls.homePage = '/'
+    }
+
+    log('validates completely', redirectUrls)
     return redirectUrls
 }
 
