@@ -56,14 +56,18 @@
   border-radius: 25px;
 }
 
-#hedera-banner-wrapper #banner .unstyled-button {
+#hedera-banner-wrapper #banner ul#button-group li {
+  line-height: 20px;
+}
+
+#hedera-banner-wrapper #banner ul#button-group li .unstyled-button {
   border: none;
   padding: 0;
   background: none;
   font-size: 12px;
   color: #464646;
   justify-content: center;
-  line-height: 12px;
+  line-height: 20px;
   text-align: left;
   margin-top: 0;
   margin-bottom: 0;
