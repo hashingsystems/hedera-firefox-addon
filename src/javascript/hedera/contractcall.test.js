@@ -145,7 +145,10 @@ test('contractcall test', async done => {
         socket.binary(true).emit(CONTRACTCALL, tx.data)
         socket.on(`${CONTRACTCALL}_RESPONSE`, async function(res) {
             log('res', res)
+            socket.on('disconnect', () => {
+                log("disconnected")
+            })
+            done()
         })
-        done()
     })
 })

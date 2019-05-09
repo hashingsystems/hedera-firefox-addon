@@ -3,7 +3,7 @@ import { Response } from '../pbweb/Response_pb'
 import { getAccountBalanceController } from './viewcontroller/grpc'
 import { AccountManager } from './models'
 import hostRuleViewController from './viewcontroller/account-overview'
-import { buttonState, buttonSocketStatus } from './ui-utils/buttons'
+import { buttonState } from './ui-utils/buttons'
 import setDevEnvironment from './hedera/environment'
 import io from 'socket.io-client'
 
@@ -50,5 +50,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     const socket = io.connect(PAYMENT_SERVER)
-    buttonSocketStatus(socket, button)
+
+    socket.on('reconnect', () => {
+        log('Payment Server is available')
+        buttonState(button, 'normal')
+    })
+
+    socket.on('connect_error', () => {
+        log('Payment Server is NOT available')
+        buttonState(button, 'hide')
+    })
 })

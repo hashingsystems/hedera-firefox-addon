@@ -35,21 +35,4 @@ const buttonState = (button, state = 'normal', timing = 3000) => {
     }
 }
 
-/**
- * Hide or show button dependning on whether socketIO payment server is available
- * @param {object} socket
- * @param {object} button
- */
-const buttonSocketStatus = (socket, button) => {
-    let id = setInterval(socketStatus, 2000, socket)
-    function socketStatus(io) {
-        if (socket.connected) {
-            buttonState(button, 'normal')
-            clearInterval(id)
-        } else {
-            buttonState(button, 'hide')
-        }
-    }
-}
-
-export { buttonState, buttonSocketStatus }
+export { buttonState }
