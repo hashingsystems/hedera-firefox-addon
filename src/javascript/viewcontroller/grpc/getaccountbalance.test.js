@@ -2,55 +2,52 @@ import io from 'socket.io-client'
 import debug from 'debug'
 import addressbook from '../../hedera/address-book'
 import Hedera from '../../hedera'
-import { JSDOM } from 'jsdom'
-import path from 'path'
 import { enumKeyByValue } from '../../hedera/utils'
-import { TransactionBody } from '../../../pbweb/TransactionBody_pb'
+import { Query } from '../../../pbweb/Query_pb'
 
-const log = debug('all:viewcontroller:grpc')
+const log = debug('all:viewcontroller:grpc:getaccountbalance')
 let paymentServer = process.env.TEST_PAYMENTSERVER
-const Tx = TransactionBody.DataCase
+const Q = Query.QueryCase
 var socket
 
-beforeEach(async function (done) {
-
+beforeEach(async function(done) {
     // Setup
+    jest.setTimeout(35000)
     socket = io.connect(paymentServer, {
         'reconnection delay': 0,
         'reopen delay': 0,
         'force new connection': true,
         transports: ['websocket']
     })
-    socket.on('connect', function () {
+    socket.on('connect', function() {
         log('onConnect')
         done()
     })
-    socket.on('disconnect', function () {
+    socket.on('disconnect', function() {
         log('onDisconnect')
     })
-    socket.on('connect_error', function () {
+    socket.on('connect_error', function() {
         log('Payment server is unavailable')
         done()
     })
-    socket.on('reconnect', function () {
+    socket.on('reconnect', function() {
         log('Payment server is unavailable')
         done()
     })
 })
 
-afterEach(async function (done) {
+afterEach(async function(done) {
     if (socket.connected) {
-        log("Do our stuff here")
-        socket.disconnect();
+        log('Do our stuff here')
+        socket.disconnect()
     } else {
         // There will not be a connection unless you have done() in beforeEach, socket.on('connect')
-        log('no connection to break...');
+        log('no connection to break...')
     }
-    // socket.close();
-    done();
-});
+    done()
+})
 
-test('Test a crypto transfer', async function (done) {
+test('Test an account get balance', async function(done) {
     const testaccount = {
         accountID: process.env.TEST_ACCOUNTID,
         publicKey: process.env.TEST_PUBLICKEY,
@@ -81,30 +78,19 @@ test('Test a crypto transfer', async function (done) {
     let sender = testaccount.accountID
     log(sender)
     let client = hedera.withOperator(keypair, sender).connect()
+    let req = client.getAccountBalance(sender).prepare()
 
-    // retrieve test HTML from testdata directory and pass it to JSDOM
-    log("dirname", __dirname)
-    let testFile = path.join(
-        __dirname,
-        '../../hedera/testdata',
-        'publisherexample1_valid.html'
-    )
-    let dom = await JSDOM.fromFile(testFile)
-    let document = dom.window.document
-    let result = Hedera.micropayment(document)
-    const memo = "blah"
-    const fee = 100000
-    let tx = client.cryptoTransfer(sender, result.recipientList, memo, fee).prepare()
-
-    const CRYPTOTRANSFER = enumKeyByValue(Tx, Tx.CRYPTOTRANSFER)
+    const CRYPTOGETACCOUNTBALANCE = enumKeyByValue(Q, Q.CRYPTOGETACCOUNTBALANCE)
     socket = io.connect(paymentServer)
 
-    socket.on('connect', function () {
-        socket.binary(true).emit(CRYPTOTRANSFER, tx.data)
-        socket.on(`${CRYPTOTRANSFER}_RESPONSE`, async function (res) {
-            log("RESPONSE is  ", await res)
+    socket.on('connect', function() {
+        socket.binary(true).emit(CRYPTOGETACCOUNTBALANCE, req.data)
+        socket.on(`${CRYPTOGETACCOUNTBALANCE}_RESPONSE`, async function(res) {
+            log('RESPONSE is  ', await res)
+            expect(res.nodePrecheckcode).toBe(0)
+            expect(res.error).toBe(null)
             socket.on('disconnect', () => {
-                log("disconnected")
+                log('disconnected')
             })
             done()
         })

@@ -172,7 +172,7 @@ async function cryptoTransferController(micropayment, port, urlString) {
 
     // socket.io builtin event
     socket.on('disconnect', function () {
-        console.log('Socket disconnected')
+        log('Socket disconnected')
     })
 
     socket.open()

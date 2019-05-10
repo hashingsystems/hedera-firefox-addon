@@ -1,14 +1,13 @@
-import Hedera from '../hedera'
-import addressbook from '../hedera/address-book'
-import dotenv from 'dotenv'
-import { TransactionBody } from '../../pbweb/TransactionBody_pb'
+import Hedera from '../../hedera'
+import addressbook from '../../hedera/address-book'
+import { TransactionBody } from '../../../pbweb/TransactionBody_pb'
 import io from 'socket.io-client'
 import debug from 'debug'
-import { enumKeyByValue } from './utils'
+import { enumKeyByValue } from '../../hedera/utils'
 import { AbiCoder } from 'web3-eth-abi'
 import { JSDOM } from 'jsdom'
 import path from 'path'
-import i from '../hedera/internal'
+import i from '../../hedera/internal'
 
 // DEBUG=test:contractcall npm test src/javascript/hedera/contractcall.test.js
 const log = debug('test:contractcall')
@@ -97,7 +96,7 @@ test('contractcall test', async done => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
     let testFile = path.join(
         __dirname,
-        'testdata',
+        '../../hedera/testdata',
         'contractcallexample1_valid.html'
     )
     let dom = await JSDOM.fromFile(testFile)
@@ -146,7 +145,7 @@ test('contractcall test', async done => {
         socket.on(`${CONTRACTCALL}_RESPONSE`, async function(res) {
             log('res', res)
             socket.on('disconnect', () => {
-                log("disconnected")
+                log('disconnected')
             })
             done()
         })
