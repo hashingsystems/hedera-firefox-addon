@@ -39,6 +39,7 @@
         "http://localhost:8099/*",
         "http://localhost:9000/*",
         "https://localhost:8443/*",
+        "https://localhost:2053/*",
         "http://localhost:9090/*",
         "http://*.dailytimestamp.com/*",
         "https://*.dailytimestamp.com/*",
