@@ -16,19 +16,13 @@
         "default_popup": "html/account-overview.html"
     },
     "background": {
-        "scripts": [
-            "javascript/background.js"
-        ],
+        "scripts": ["javascript/background.js"],
         "persistent": false
     },
     "content_scripts": [
         {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "javascript/content.js"
-            ]
+            "matches": ["<all_urls>"],
+            "js": ["javascript/content.js"]
         }
     ],
     "permissions": [
@@ -44,6 +38,7 @@
         "http://localhost:8080/*",
         "http://localhost:8099/*",
         "http://localhost:9000/*",
+        "https://localhost:8443/*",
         "http://localhost:9090/*",
         "http://*.dailytimestamp.com/*",
         "https://*.dailytimestamp.com/*",
@@ -52,9 +47,6 @@
         "http://*.hash-hash.info/*",
         "https://*.hash-hash.info/*"
     ],
-    "web_accessible_resources": [
-        "html/banner.html",
-        "icons/icon16.png"
-    ],
+    "web_accessible_resources": ["html/banner.html", "icons/icon16.png"],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
