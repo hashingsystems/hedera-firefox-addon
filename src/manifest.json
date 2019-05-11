@@ -43,8 +43,8 @@
         "http://localhost:9090/*",
         "http://*.dailytimestamp.com/*",
         "https://*.dailytimestamp.com/*",
-        "http://*.thetimsta.mp/*",
-        "https://*.thetimsta.mp/*",
+        "http://*.thetimesta.mp/*",
+        "https://*.thetimesta.mp/*",
         "http://*.hash-hash.info/*",
         "https://*.hash-hash.info/*"
     ],
