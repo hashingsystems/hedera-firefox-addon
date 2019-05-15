@@ -3,7 +3,7 @@ import addressbook from '../../hedera/address-book'
 import { TransactionBody } from '../../../pbweb/TransactionBody_pb'
 import io from 'socket.io-client'
 import debug from 'debug'
-import { enumKeyByValue } from '../../hedera/utils'
+import { enumKeyByValue, hexStringToUint8Array } from '../../hedera/utils'
 import { AbiCoder } from 'web3-eth-abi'
 import { JSDOM } from 'jsdom'
 import path from 'path'
@@ -113,9 +113,10 @@ test('contractcall test', async done => {
     log(result.params)
 
     const abiCoder = new AbiCoder()
-    const functionParams = abiCoder
+    const functionParamsHex = abiCoder
         .encodeFunctionCall(result.abi, result.params)
         .slice(2) // additionally remove the first byte "0x" which denotes a hex string as it fails in other languages
+    const functionParams = hexStringToUint8Array(functionParamsHex)
 
     const gas = result.params[2]
     const amount = gas

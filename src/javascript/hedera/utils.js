@@ -1,6 +1,4 @@
-import {
-    ResponseCodeEnum
-} from '../../pbweb/ResponseCode_pb'
+import { ResponseCodeEnum } from '../../pbweb/ResponseCode_pb'
 
 /**
  * @module utils
@@ -39,7 +37,13 @@ function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.substr(1)
 }
 
-export {
-    enumKeyByValue,
-    friendlyHederaResponseCodeEnum
+// convert hex string to Uint8Array
+const hexStringToUint8Array = hexString => {
+    return new Uint8Array(
+        hexString.match(/.{1,2}/g).map(function(_byte) {
+            return parseInt(_byte, 16)
+        })
+    )
 }
+
+export { enumKeyByValue, friendlyHederaResponseCodeEnum, hexStringToUint8Array }

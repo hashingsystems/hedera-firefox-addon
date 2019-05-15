@@ -15,7 +15,7 @@ const log = debug('test:contractcall')
  * @param {string} gas
  * @param {string} amount
  * @param {string} sender
- * @param {Uint8Array | string} functionParams
+ * @param {Uint8Array} functionParams
  * @param {string} memo
  * @param {number} fee
  */

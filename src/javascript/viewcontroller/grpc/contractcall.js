@@ -1,5 +1,5 @@
 import Hedera from '../../hedera'
-import { enumKeyByValue } from '../../hedera/utils'
+import { enumKeyByValue, hexStringToUint8Array } from '../../hedera/utils'
 import io from 'socket.io-client'
 import { TransactionBody } from '../../../pbweb/TransactionBody_pb'
 import nodeAddress from '../../hedera/address'
@@ -72,9 +72,10 @@ async function getContractCallController(contractTag, urlString) {
     // This first bye "0x" denotes a hex string
     // because the extra "0x" byte deserializes incorrectly in other languages
     // and causes transaction to fail on Hedera
-    const functionParams = abiCoder.encodeFunctionCall(abi, params).slice(2)
+    const functionParamsHex = abiCoder.encodeFunctionCall(abi, params).slice(2)
+    const functionParams = hexStringToUint8Array(functionParamsHex)
     const gas = 100000
-    log('GASSSS', gas)
+    log('GAS', gas)
 
     const amount = params[2]
     log('AMOUNT', amount)
