@@ -18,6 +18,7 @@ const log = debug('test:contractcall')
  * @param {Uint8Array} functionParams
  * @param {string} memo
  * @param {number} fee
+ * @param {boolean} generateRecord is a boolean to indicate whether records are to be stored in Hedera.
  */
 function contractCall(
     self,
@@ -27,7 +28,8 @@ function contractCall(
     sender,
     functionParams,
     memo,
-    fee
+    fee,
+    generateRecord
 ) {
     if (self.operator === undefined) {
         // operator (e.g. the current account that's paying the service fee to Hedera nodes)
@@ -52,7 +54,7 @@ function contractCall(
     txBody.setTransactionid(txID)
     txBody.setTransactionfee(fee)
     txBody.setTransactionvalidduration(i.getDuration())
-    txBody.setGeneraterecord(true)
+    txBody.setGeneraterecord(generateRecord)
     txBody.setContractcall(body)
     txBody.setNodeaccountid(self.nodeAccountID)
     txBody.setMemo(memo)

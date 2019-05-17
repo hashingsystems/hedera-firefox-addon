@@ -22,9 +22,16 @@ const rt = ResponseType
  * @param {string} account is the account whom we are querying the account balance from. It is a string delimited by dot, of the format 'shardNum.realmNum.accountNum'.
  * @param {string} memo is an optional string memo.
  * @param {Object} resType is a Hedera QueryHeader ResponseType.
+ * @param {boolean} generateRecord is a boolean to indicate whether records are to be stored in Hedera.
  * @returns {Object} returns a Hedera Query.
  */
-function getAccountBalance(self, account, memo = '', resType = rt.ANSWER_ONLY) {
+function getAccountBalance(
+    self,
+    account,
+    memo = '',
+    resType = rt.ANSWER_ONLY,
+    generateRecord = false
+) {
     log('getAccountBalance makes a gRPC call to Hedera network')
     if (self.operator === undefined) {
         // operator (e.g. the current account that's paying)
@@ -44,7 +51,14 @@ function getAccountBalance(self, account, memo = '', resType = rt.ANSWER_ONLY) {
         }
     ]
     let fee = TRANSACTION_FEE
-    let tx = cryptoTransfer(self, sender, recipientList, memo, fee)
+    let tx = cryptoTransfer(
+        self,
+        sender,
+        recipientList,
+        memo,
+        fee,
+        generateRecord
+    )
 
     // prepare query header
     let qHeader = new QueryHeader()

@@ -19,9 +19,17 @@ const log = debug('all:hedera:cryptotransfer')
  * @param {Array} recipientList refers to the list of accounts receiving the payment. It consists of the amount and accountID of receiver.
  * @param {string} memo is an optional memo string.
  * @param {number} fee is service fee to Hedera nodes.
+ * @param {boolean} generateRecord is a boolean to indicate whether records are to be stored in Hedera.
  * @returns {Object} returns a Hedera Transaction.
  */
-function cryptoTransfer(self, sender, recipientList, memo, fee) {
+function cryptoTransfer(
+    self,
+    sender,
+    recipientList,
+    memo,
+    fee,
+    generateRecord
+) {
     if (self.operator === undefined) {
         // operator (e.g. the current account that's paying the service fee to Hedera nodes)
         log(
@@ -33,6 +41,7 @@ function cryptoTransfer(self, sender, recipientList, memo, fee) {
     log('sender', sender)
     // log("recipient", amount)
     // log("amount", amount)
+    log('generate record', generateRecord)
     log('recipientList', recipientList)
     log('fee', fee)
     // let acctAmtSender = new AccountAmount()
@@ -57,7 +66,7 @@ function cryptoTransfer(self, sender, recipientList, memo, fee) {
     txBody.setTransactionid(txID)
     txBody.setTransactionfee(fee)
     txBody.setTransactionvalidduration(i.getDuration())
-    txBody.setGeneraterecord(true)
+    txBody.setGeneraterecord(generateRecord)
     txBody.setCryptotransfer(cryptoTransferTransactionBody)
     txBody.setNodeaccountid(self.nodeAccountID)
     txBody.setMemo(memo)

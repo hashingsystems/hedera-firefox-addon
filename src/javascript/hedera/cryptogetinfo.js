@@ -12,7 +12,13 @@ const log = debug('all:hedera:cryptogetinfo')
  */
 const rt = ResponseType
 
-function cryptoGetInfo(self, account, memo = '', resType = rt.ANSWER_ONLY) {
+function cryptoGetInfo(
+    self,
+    account,
+    memo = '',
+    resType = rt.ANSWER_ONLY,
+    generateRecord = false
+) {
     log('cryptoGetInfo makes a gRPC call to Hedera network')
     if (self.operator === undefined) {
         // operator (e.g. the current account that's paying)
@@ -34,7 +40,14 @@ function cryptoGetInfo(self, account, memo = '', resType = rt.ANSWER_ONLY) {
     ]
 
     let fee = 100000
-    let tx = cryptoTransfer(self, sender, recipientList, memo, fee)
+    let tx = cryptoTransfer(
+        self,
+        sender,
+        recipientList,
+        memo,
+        fee,
+        generateRecord
+    )
 
     // prepare query header
     let qHeader = new QueryHeader()
