@@ -19,7 +19,7 @@ let socket
 let paymentServer = process.env.TEST_PAYMENTSERVER
 
 beforeEach(done => {
-    if (paymentServer === undefined) {
+    if (SKIP_NETWORK_TESTS) {
         done()
         return
     }
@@ -41,7 +41,7 @@ beforeEach(done => {
 })
 
 afterEach(done => {
-    if (paymentServer === undefined) {
+    if (SKIP_NETWORK_TESTS) {
         done()
         return
     }
@@ -53,6 +53,10 @@ afterEach(done => {
 })
 
 test('contractcall test', async done => {
+    if (SKIP_NETWORK_TESTS) {
+        done()
+        return
+    }
     const testaccount = {
         accountID: process.env.TEST_ACCOUNTID,
         publicKey: process.env.TEST_PUBLICKEY,

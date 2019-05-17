@@ -13,6 +13,10 @@ const Tx = TransactionBody.DataCase
 var socket
 
 beforeEach(async function(done) {
+    if (SKIP_NETWORK_TESTS) {
+        done()
+        return
+    }
     // Setup
     socket = io.connect(paymentServer, {
         'reconnection delay': 0,
@@ -38,6 +42,10 @@ beforeEach(async function(done) {
 })
 
 afterEach(async function(done) {
+    if (SKIP_NETWORK_TESTS) {
+        done()
+        return
+    }
     if (socket.connected) {
         log('Do our stuff here')
         socket.disconnect()
@@ -50,6 +58,10 @@ afterEach(async function(done) {
 })
 
 test('Test a crypto transfer', async function(done) {
+    if (SKIP_NETWORK_TESTS) {
+        done()
+        return
+    }
     const testaccount = {
         accountID: process.env.TEST_ACCOUNTID,
         publicKey: process.env.TEST_PUBLICKEY,

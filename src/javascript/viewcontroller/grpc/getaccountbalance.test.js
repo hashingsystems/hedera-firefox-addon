@@ -11,6 +11,10 @@ const Q = Query.QueryCase
 var socket
 
 beforeEach(async function(done) {
+    if (SKIP_NETWORK_TESTS) {
+        done()
+        return
+    }
     // Setup
     jest.setTimeout(35000)
     socket = io.connect(paymentServer, {
@@ -37,6 +41,10 @@ beforeEach(async function(done) {
 })
 
 afterEach(async function(done) {
+    if (SKIP_NETWORK_TESTS) {
+        done()
+        return
+    }
     if (socket.connected) {
         log('Do our stuff here')
         socket.disconnect()
@@ -48,6 +56,10 @@ afterEach(async function(done) {
 })
 
 test('Test an account get balance', async function(done) {
+    if (SKIP_NETWORK_TESTS) {
+        done()
+        return
+    }
     const testaccount = {
         accountID: process.env.TEST_ACCOUNTID,
         publicKey: process.env.TEST_PUBLICKEY,

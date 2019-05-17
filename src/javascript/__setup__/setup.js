@@ -59,3 +59,23 @@ Account.prototype.getItem = localStorage.getItem
 
 KeyPairing.prototype.setItem = localStorage.setItem
 KeyPairing.prototype.getItem = localStorage.getItem
+
+const paymentServer = process.env.TEST_PAYMENTSERVER
+
+const testaccount = {
+    accountID: process.env.TEST_ACCOUNTID,
+    publicKey: process.env.TEST_PUBLICKEY,
+    privateKey: process.env.TEST_PRIVATEKEY,
+    solidityAddress: process.env.TEST_SOLIDITYADDRESS
+}
+
+if (
+    testaccount.accountID === undefined ||
+    testaccount.publicKey === undefined ||
+    testaccount.privateKey === undefined ||
+    paymentServer === undefined
+) {
+    global.SKIP_NETWORK_TESTS = true
+} else {
+    global.SKIP_NETWORK_TESTS = false
+}
