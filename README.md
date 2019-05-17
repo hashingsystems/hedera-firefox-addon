@@ -1,3 +1,7 @@
+# Hedera browser extension
+
+![CircleCI](https://img.shields.io/circleci/project/github/hashgraph/hedera-browser-extension/master.svg?label=circleci)
+
 ## Dependencies
 
 ```bash
