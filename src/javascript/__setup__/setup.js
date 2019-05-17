@@ -8,11 +8,14 @@ import {
 
 import { LocalStorage } from './localstorage-mock'
 
+import dotenv from 'dotenv'
 import Dexie from 'dexie'
 import mockIndexedDB from 'fake-indexeddb'
 import FDBKeyRange from 'fake-indexeddb/lib/FDBKeyRange'
 import KeyPairing from '../models/key-pairing'
 import addressBook from '../hedera/address-book'
+
+const config = dotenv.config()
 
 // mock local storage
 if (typeof global._localStorage !== 'undefined') {
@@ -60,13 +63,13 @@ Account.prototype.getItem = localStorage.getItem
 KeyPairing.prototype.setItem = localStorage.setItem
 KeyPairing.prototype.getItem = localStorage.getItem
 
-const paymentServer = process.env.TEST_PAYMENTSERVER
+const paymentServer = config.TEST_PAYMENTSERVER
 
 const testaccount = {
-    accountID: process.env.TEST_ACCOUNTID,
-    publicKey: process.env.TEST_PUBLICKEY,
-    privateKey: process.env.TEST_PRIVATEKEY,
-    solidityAddress: process.env.TEST_SOLIDITYADDRESS
+    accountID: config.TEST_ACCOUNTID,
+    publicKey: config.TEST_PUBLICKEY,
+    privateKey: config.TEST_PRIVATEKEY,
+    solidityAddress: config.TEST_SOLIDITYADDRESS
 }
 
 if (
