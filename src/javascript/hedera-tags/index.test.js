@@ -1,4 +1,4 @@
-import Hedera from '../hedera'
+import HederaTag from '.'
 import { JSDOM } from 'jsdom'
 import path from 'path'
 import debug from 'debug'
@@ -6,7 +6,7 @@ import debug from 'debug'
 const log = debug('test:hedera')
 
 test('When document object is invalid', () => {
-    let result = Hedera.micropayment(null)
+    let result = HederaTag.micropayment(null)
     expect(result).toBe(false)
 })
 
@@ -19,7 +19,7 @@ test('When hedera-micropayment tag is VALID', async () => {
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     log(result)
     expect(result).toEqual({
         recipientList: [
@@ -54,7 +54,7 @@ test('When hedera-micropayment tag is INVALID - does not contain recipientList',
     // get the document object that we can operate on
     let document = dom.window.document
     // test it
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     // since publisherexample1.html has an old tag that does not have recipientList, it should fail
     expect(result).toBe(false)
 })
@@ -68,7 +68,7 @@ test('When hedera-micropayment tag is INVALID - recipientList amount is empty', 
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     expect(result).toBe(false)
 })
 
@@ -81,7 +81,7 @@ test('When hedera-micropayment tag is INVALID - recipientList accountID is inval
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     expect(result).toBe(false)
 })
 
@@ -94,7 +94,7 @@ test('When hedera-micropayment tag is INVALID - accountID is invalid', async () 
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     expect(result).toBe(false)
 })
 
@@ -107,7 +107,7 @@ test('When hedera-micropayment tag is INVALID - submissionNode account is invali
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     expect(result).toBe(false)
 })
 
@@ -120,7 +120,7 @@ test('When hedera-micropayment tag is VALID - paymentserver is valid', async () 
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     expect(result).toEqual({
         recipientList: [
             {
@@ -152,6 +152,6 @@ test('When hedera-micropayment tag is INVALID - paymentserver is invalid', async
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     expect(result).toBe(false)
 })

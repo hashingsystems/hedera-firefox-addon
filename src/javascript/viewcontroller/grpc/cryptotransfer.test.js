@@ -1,7 +1,7 @@
 import io from 'socket.io-client'
 import debug from 'debug'
 import addressbook from '../../hedera/address-book'
-import Hedera from '../../hedera'
+import HederaTag from '../../hedera-tags'
 import { JSDOM } from 'jsdom'
 import path from 'path'
 import { enumKeyByValue } from '../../hedera/utils'
@@ -102,7 +102,7 @@ test('Test a crypto transfer', async function(done) {
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     const memo = 'blah'
     const fee = TRANSACTION_FEE
     let tx = client

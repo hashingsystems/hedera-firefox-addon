@@ -1,8 +1,8 @@
 import { isNullOrUndefined } from 'util'
-import address from '../address'
-import validateUrl from '../../validate'
+import address from '../hedera/address'
+import validateUrl from '../validate'
 import debug from 'debug'
-import i from '../internal'
+import i from '../hedera/internal'
 
 const log = debug('all:hedera:tags:micropaymenttagvalidation')
 

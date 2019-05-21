@@ -8,7 +8,7 @@ import supertest from 'supertest'
 // using express to render our html for tests
 const app = express()
 const port = 9999
-const htmlFileDirectory = path.join(__dirname, '..', 'testdata')
+const htmlFileDirectory = path.join(__dirname, 'testdata')
 let routes = []
 
 let server

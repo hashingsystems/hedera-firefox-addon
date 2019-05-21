@@ -1,6 +1,6 @@
-import validateUrl from '../../validate'
+import validateUrl from '../validate'
 import { isNullOrUndefined } from 'util'
-import i from '../internal'
+import i from '../hedera/internal'
 import debug from 'debug'
 
 const log = debug('all:hedera:contracttagvalidation')

@@ -3,7 +3,7 @@ import debug from 'debug'
 import { JSDOM } from 'jsdom'
 import path from 'path'
 import addressbook from '../../hedera/address-book'
-import Hedera from '../../hedera'
+import HederaTag from '../../hedera-tags'
 import { enumKeyByValue } from '../../hedera/utils'
 import { Query } from '../../../pbweb/Query_pb'
 import { TransactionBody } from '../../../pbweb/TransactionBody_pb'
@@ -104,7 +104,7 @@ test('Test a get transaction receipt after a crypto transfer', async function(do
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.micropayment(document)
+    let result = HederaTag.micropayment(document)
     const memo = 'blah'
     const fee = TRANSACTION_FEE
     let tx = client

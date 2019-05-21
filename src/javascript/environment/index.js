@@ -1,4 +1,4 @@
-import { AccountManager } from '../../models/index.js'
+import { AccountManager } from '../models/index.js'
 import debug from 'debug'
 
 /**

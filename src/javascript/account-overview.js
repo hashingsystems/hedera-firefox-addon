@@ -4,7 +4,7 @@ import { getAccountBalanceController } from './viewcontroller/grpc'
 import { AccountManager } from './models'
 import hostRuleViewController from './viewcontroller/account-overview'
 import { buttonState } from './ui-utils/buttons'
-import setDevEnvironment from './hedera/environment'
+import setDevEnvironment from './environment'
 import io from 'socket.io-client'
 
 document.addEventListener('DOMContentLoaded', async function() {

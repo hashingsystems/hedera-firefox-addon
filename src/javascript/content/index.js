@@ -1,4 +1,4 @@
-import Hedera from '../hedera'
+import HederaTag from '../hedera-tags'
 import { alertBanner, setButtonGroupOptions } from '../ui-utils'
 import { tinyBarsToDollarsUnit } from '../hedera/currency'
 import { cryptoTransferController } from '../viewcontroller/grpc'
@@ -13,8 +13,8 @@ const port = chrome.runtime.connect({
 async function contentListener(msg, sender, sendResponse) {
     log(msg)
     // check that websites contain hedera-tag
-    let micropaymentTag = Hedera.micropayment(document, chrome.runtime.id)
-    let contractTag = Hedera.contract(document, chrome.runtime.id)
+    let micropaymentTag = HederaTag.micropayment(document, chrome.runtime.id)
+    let contractTag = HederaTag.contract(document, chrome.runtime.id)
 
     if (msg.type === 'login') {
         // if there is a micropayment tag on this web page and

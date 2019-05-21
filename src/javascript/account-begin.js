@@ -1,4 +1,4 @@
-import setDevEnvironment from './hedera/environment'
+import setDevEnvironment from './environment'
 
 document.addEventListener('DOMContentLoaded', async function() {
     await setDevEnvironment('all:account-begin')

@@ -1,5 +1,5 @@
 import path from 'path'
-import Hedera from '..'
+import HederaTag from '.'
 import { JSDOM } from 'jsdom'
 import contractTag from './contracttagvalidation'
 import debug from 'debug'
@@ -10,13 +10,12 @@ test('When hedera-contract tag is VALID', async () => {
     // retrieve test HTML from testdata directory and pass it to JSDOM
     let testFile = path.join(
         __dirname,
-        '..',
         'testdata',
         'contractcallexample1_valid.html'
     )
     let dom = await JSDOM.fromFile(testFile)
     let document = dom.window.document
-    let result = Hedera.contract(document)
+    let result = HederaTag.contract(document)
     let params = [
         '1',
         '50000000',
