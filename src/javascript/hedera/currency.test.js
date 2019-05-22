@@ -1,7 +1,6 @@
 import Dinero from 'dinero.js'
 import {
     tinyBarsToDollarsUnit,
-    tinyBarsToDollarsCurr,
     dollarsToTinyBarsUnit,
     dollarsToTinyBarsCurr,
     tinyBarsToHBarsUnit,
@@ -14,7 +13,6 @@ import {
 
 test('conversion', () => {
     // log("conversion")
-    // log(tinyBarsToDollarsCurr(100000000))
 })
 
 test('1 USD as a Dinero object', () => {
@@ -51,35 +49,47 @@ test('tinyBars to hBars currency', () => {
 
 test('tinyBars to hBars unit', () => {
     let tinyBarsToHBarsU = tinyBarsToHBarsUnit(100000000)
-    expect(tinyBarsToHBarsU).toBe(1)
+    expect(tinyBarsToHBarsU.toNumber()).toBe(1)
 
     let tinyBarsToHBarsU2 = tinyBarsToHBarsUnit(1)
-    expect(tinyBarsToHBarsU2).toBe(0.00000001)
+    expect(tinyBarsToHBarsU2.toNumber()).toBe(0.00000001)
 
     let tinyBarsToHBarsU1 = tinyBarsToHBarsUnit(898356632927)
-    expect(tinyBarsToHBarsU1).toBe(8983.56632927)
-})
-
-test('tinyBars to Dollars currency', () => {
-    let tBarsToDollarsCurr = tinyBarsToDollarsCurr(110000000000000000)
-    expect(tBarsToDollarsCurr).toBe('$132,000,000.00')
+    expect(tinyBarsToHBarsU1.toNumber()).toBe(8983.56632927)
 })
 
 test('tinyBars to Dollars unit', () => {
     let tinyBarsToDolsU = tinyBarsToDollarsUnit(100000000)
-    expect(tinyBarsToDolsU).toBe(0.12)
+    expect(tinyBarsToDolsU.toNumber()).toBe(0.12)
+    expect(tinyBarsToDolsU.toFixed(2)).toBe('0.12')
 
     let tinyBarsToDolsU1 = tinyBarsToDollarsUnit(1) // smallest currency in tinybars
-    expect(tinyBarsToDolsU1).toBe(0.0000000012)
+    expect(tinyBarsToDolsU1.toNumber()).toBe(0.0000000012)
+    expect(tinyBarsToDolsU1.toFixed(10)).toBe('0.0000000012')
 
     let tinyBarsToDolsU2 = tinyBarsToDollarsUnit(0.1)
-    expect(tinyBarsToDolsU2).toBe(0)
+    expect(tinyBarsToDolsU2.toNumber()).toBe(0)
+    expect(tinyBarsToDolsU2.toFixed()).toBe('0')
 
     let tinyBarsToDolsU3 = tinyBarsToDollarsUnit(0)
-    expect(tinyBarsToDolsU3).toBe(0)
+    expect(tinyBarsToDolsU3.toNumber()).toBe(0)
+    expect(tinyBarsToDolsU2.toFixed()).toBe('0')
 
     let tinyBarsToDolsU4 = tinyBarsToDollarsUnit(4666668) // tinyBars.toFix(3) returns a rounded up string
-    expect(tinyBarsToDolsU4).toBe(0.0056000016)
+    expect(tinyBarsToDolsU4.toNumber()).toBe(0.0056000016)
+    expect(tinyBarsToDolsU4.toFixed(4)).toBe('0.0056')
+
+    let USDObj = tinyBarsToDollarsUnit(5678990001112)
+    let USDNum = USDObj.toNumber()
+    expect(USDNum).toBe(6814.788001334399)
+    let USDString = `$${USDObj.toFixed(3)}`
+    expect(USDString).toBe('$6814.788')
+
+    let amountInUsdObj = tinyBarsToDollarsUnit(200000)
+    expect(`$${amountInUsdObj.toNumber()}`).toBe('$0.00024')
+
+    let amountInUsdObj1 = tinyBarsToDollarsUnit(277777775)
+    expect(`$${amountInUsdObj1.toFixed(5)}`).toBe('$0.33333')
 })
 
 test('hBars to tinyBars currency', () => {
@@ -89,7 +99,22 @@ test('hBars to tinyBars currency', () => {
 
 test('hBars to tinyBars unit', () => {
     let hBarsTotinyBarsU = hBarsToTinyBarsUnit(1)
-    expect(hBarsTotinyBarsU).toBe(100000000)
+    expect(hBarsTotinyBarsU.toNumber()).toBe(100000000)
+
+    let tinyBarsToHBarsU2 = tinyBarsToHBarsUnit(1)
+    expect(tinyBarsToHBarsU2.toNumber()).toBe(0.00000001)
+
+    let tinyBarsToHBarsU1 = tinyBarsToHBarsUnit(898356632927)
+    expect(tinyBarsToHBarsU1.toNumber()).toBe(8983.56632927)
+
+    let tinyBarsToHBarsU3 = tinyBarsToHBarsUnit(8983566329273)
+    expect(tinyBarsToHBarsU3.toNumber()).toBe(89835.66329273001)
+
+    let tinyBarsToHBarsU4 = tinyBarsToHBarsUnit(89835663292755)
+    expect(tinyBarsToHBarsU4.toNumber()).toBe(898356.63292755)
+
+    let tinyBarsToHBarsU5 = tinyBarsToHBarsUnit(2212345678)
+    expect(tinyBarsToHBarsU5.toNumber()).toBe(22.12345678)
 })
 
 test('hBars to Dollars currency', () => {
@@ -110,13 +135,16 @@ test('Dollars to tinyBars currency', () => {
 
 test('dollars to tinyBars unit', () => {
     let dollarsToTinyBarsU = dollarsToTinyBarsUnit(0.12)
-    expect(dollarsToTinyBarsU).toBe(100000000)
+    expect(dollarsToTinyBarsU.toNumber()).toBe(100000000)
 
     let dollarsToTinyBarsU1 = dollarsToTinyBarsUnit(0.0000000012) // smallest currency in USD
-    expect(dollarsToTinyBarsU1).toBe(1)
+    expect(dollarsToTinyBarsU1.toNumber()).toBe(1)
 
     let dollarsToTinyBarsU2 = dollarsToTinyBarsUnit(0.0304)
-    expect(dollarsToTinyBarsU2).toBe(25333333)
+    expect(dollarsToTinyBarsU2.toNumber()).toBe(25333333)
+
+    let dollarsToTinyBarsU3 = dollarsToTinyBarsUnit(0.9013337335)
+    expect(dollarsToTinyBarsU3.toNumber()).toBe(751111444)
 })
 
 test('Dollars to hBars currency', () => {

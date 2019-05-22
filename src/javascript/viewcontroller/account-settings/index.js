@@ -39,9 +39,9 @@ async function limitViewController(document) {
     thresholdDollarsElem.onblur = async function() {
         let value = thresholdDollarsElem.value
         log('VALUE HERE IS ', value)
-        let tinyBarsNum = dollarsToTinyBarsUnit(value)
-        log('tinyBarsNum HERE IS ', tinyBarsNum)
-        await nm.setCurrentLimit(tinyBarsNum)
+        let tinyBarsObj = dollarsToTinyBarsUnit(value)
+        log('tinyBarsNum HERE IS ', tinyBarsObj.toNumber())
+        await nm.setCurrentLimit(tinyBarsObj.toNumber())
     }
 }
 

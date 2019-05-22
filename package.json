@@ -4,6 +4,7 @@
     "description": "Hedera browser extension to manage micropayments",
     "dependencies": {
         "debug": "^4.1.1",
+        "decimal.js": "^10.2.0",
         "detect-node": "^2.0.4",
         "dexie": "^3.0.0-alpha.6",
         "dinero.js": "^1.6.0",

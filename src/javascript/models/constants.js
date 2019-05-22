@@ -1,5 +1,5 @@
 /**
- * @module Models 
+ * @module Models
  */
 
 /**
@@ -30,8 +30,14 @@ const ICON_STATE = Object.freeze({
  */
 const DEFAULT_LIMIT = 0
 
+/**
+ * @const DEFAULT_EXCHANGE is the current price of hbar in USD
+ */
+const DEFAULT_EXCHANGE = 0.12
+
 export default {
     PREF,
     DEFAULT_LIMIT,
+    DEFAULT_EXCHANGE,
     ICON_STATE
 }

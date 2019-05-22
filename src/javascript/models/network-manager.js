@@ -1,10 +1,6 @@
 import AbstractLocalStorage from './abstract-local-storage'
 import NetworkSettings from './network-settings'
-import {
-    tinyBarsToDollarsCurr,
-    tinyBarsToHBarsCurr,
-    tinyBarsToDollarsUnit
-} from '../hedera/currency'
+import { tinyBarsToHBarsCurr, tinyBarsToDollarsUnit } from '../hedera/currency'
 
 /**
  * @module NetworkManager
@@ -16,9 +12,9 @@ import {
 const errMsg = 'Please init() our network manager instance'
 
 /**
- * 
+ *
  * NetworkManager class allows user to toggle between mainnet, testnet and devnet.
- * We should never need to access NetworkSettings class directly. 
+ * We should never need to access NetworkSettings class directly.
  * @extends AbstractLocalStorage
  * @example
  * let nm = await new NetworkManager().init()
@@ -64,7 +60,7 @@ class NetworkManager extends AbstractLocalStorage {
             case 'mock':
                 await this.setCurrentNetwork('devnet')
                 break
-                // staging is default
+            // staging is default
             case 'staging':
             default:
                 await this.setCurrentNetwork('testnet')
@@ -75,10 +71,10 @@ class NetworkManager extends AbstractLocalStorage {
     }
 
     /**
-     * 
+     *
      * setCurrentNetwork allows user to set hederaNetwork, which can either be 'testnet' or 'mainnet'.
      * @param {string} hederaNetwork
-     * 
+     *
      */
     async setCurrentNetwork(hederaNetwork) {
         this.currentNetwork = hederaNetwork
@@ -106,8 +102,8 @@ class NetworkManager extends AbstractLocalStorage {
     }
 
     /**
-     * 
-     * @param {Object} settings 
+     *
+     * @param {Object} settings
      */
     async setCurrentSettings(settings) {
         this._throw(this.currentNetwork, errMsg)
@@ -134,11 +130,13 @@ class NetworkManager extends AbstractLocalStorage {
     async getCurrentLimitInMultiCurrency() {
         this._throw(this.currentNetwork, errMsg)
         let limit = await this.getCurrentLimit()
-        let USDNum = tinyBarsToDollarsUnit(limit)
-        let USDString = `$${USDNum}`
+        let hBars = tinyBarsToHBarsCurr(limit)
+        let USDObj = tinyBarsToDollarsUnit(limit)
+        let USDNum = USDObj.toNumber()
+        let USDString = `$${USDObj.toFixed(3)}`
         return {
             tinyBars: limit,
-            hBars: tinyBarsToHBarsCurr(limit),
+            hBars,
             USDString,
             USDNum
         }

@@ -1,4 +1,4 @@
-import { tinyBarsToDollarsCurr, tinyBarsToHBarsCurr } from '../hedera/currency'
+import { tinyBarsToDollarsUnit, tinyBarsToHBarsCurr } from '../hedera/currency'
 import AbstractLocalStorage from './abstract-local-storage'
 import NetworkManager from './network-manager'
 import debug from 'debug'
@@ -117,11 +117,89 @@ class Account extends AbstractLocalStorage {
         this.details = await this.getDetails()
         if (this.details.balance !== undefined) {
             let balance = this.details.balance
+            log('Balance', balance)
+
+            if (balance < 0) {
+                log('less than 0 tinybars, USD is ', undefined)
+                return {
+                    tinyBars: undefined,
+                    hBars: undefined,
+                    USD: undefined
+                }
+            }
+            // less than 0.000000999 USD
+            if (balance < 100) {
+                let USD = tinyBarsToDollarsUnit(balance).toFixed(10)
+                log('less than 0.000000999 USD, USD is ', USD)
+                return {
+                    tinyBars: balance,
+                    hBars: tinyBarsToHBarsCurr(balance, 8),
+                    USD: `$${USD}`
+                }
+            }
+            // less than 0.0000999 USD
+            if (balance < 83325) {
+                let USD = tinyBarsToDollarsUnit(balance).toFixed(9)
+                log('less than 0.0000999 USD, USD is ', USD)
+                return {
+                    tinyBars: balance,
+                    hBars: tinyBarsToHBarsCurr(balance, 8),
+                    USD: `$${USD}`
+                }
+            }
+            // less than 0.00999 USD
+            if (balance < 8333325) {
+                let USD = tinyBarsToDollarsUnit(balance).toFixed(8)
+                log('less than 0.00999 USD, USD is ', USD)
+                return {
+                    tinyBars: balance,
+                    hBars: tinyBarsToHBarsCurr(balance, 8),
+                    USD: `$${USD}`
+                }
+            }
+            // less than 0.9999 USD
+            if (balance < 833333325) {
+                let USD = tinyBarsToDollarsUnit(balance).toFixed(6)
+                log('less than 0.9999 USDs, USD is ', USD)
+                return {
+                    tinyBars: balance,
+                    hBars: tinyBarsToHBarsCurr(balance, 8),
+                    USD: `$${USD}`
+                }
+            }
+            // less than 999.9999 USD
+            if (balance < 833333333325) {
+                let USD = tinyBarsToDollarsUnit(balance).toFixed(4)
+                log('less than 999.9999 USD, USD is', USD)
+                return {
+                    tinyBars: balance,
+                    hBars: tinyBarsToHBarsCurr(balance, 8),
+                    USD: `$${USD}`
+                }
+            }
+            // less than 99 999.9999 USD
+            if (balance < 83333333333325) {
+                let USD = tinyBarsToDollarsUnit(balance).toFixed(3)
+                log('less than 99 999.9999 USD, USD is', USD)
+                return {
+                    tinyBars: balance,
+                    hBars: tinyBarsToHBarsCurr(balance, 8),
+                    USD: `$${USD}`
+                }
+            }
+
+            let USD = tinyBarsToDollarsUnit(balance).toFixed(2)
+            log('more than 99 999.9999USD', USD)
             return {
                 tinyBars: balance,
                 hBars: tinyBarsToHBarsCurr(balance, 8),
-                USD: tinyBarsToDollarsCurr(balance)
+                USD: `$${USD}`
             }
+            // return {
+            //     tinyBars: balance,
+            //     hBars: tinyBarsToHBarsCurr(balance, 8),
+            //     USD: tinyBarsToDollarsUnit(balance)
+            // }
         }
         log('0000000 getBalance', this.details)
         log('111111 getBalance', this.details.balance)

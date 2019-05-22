@@ -1,34 +1,10 @@
 import Dinero from 'dinero.js'
+import k from '../models/constants'
+import Decimal from 'decimal.js'
 
 /**
  * @module currency
  */
-
-/**
- * @const DEFAULT_LIMIT
- */
-const DEFAULT_LIMIT = 0
-
-/**
- * @const DEFAULT_EXCHANGE is the current price of hbar in USD
- */
-const DEFAULT_EXCHANGE = 0.12
-
-/**
- *
- * decimalPlaces make sures that the decimal places are accurate to the 10th decimal place.
- * @param {number} n
- */
-function decimalPlaces(n) {
-    function hasFraction(n) {
-        return Math.abs(Math.round(n) - n) > 1e-10
-    }
-
-    let count = 0
-    // multiply by increasing powers of 10 until the fractional part is ~ 0
-    while (hasFraction(n * 10 ** count) && isFinite(10 ** count)) count++
-    return count
-}
 
 /**
  *
@@ -39,30 +15,12 @@ function decimalPlaces(n) {
  */
 function tinyBarsToDollarsUnit(tinyBars) {
     let a = parseInt(tinyBars) * 10000000000 // this is to ensure we catch 10 decimal places
-    let b = a * DEFAULT_EXCHANGE
+    let b = a * k.DEFAULT_EXCHANGE
     let c = b / 1000000000000000000
-    if (decimalPlaces(c) > 11) {
-        return 0
+    if (c.toString().match(/[e-]/)) {
+        return new Decimal(c.toFixed(10))
     }
-    return c
-}
-
-/**
- *
- * tinyBarsToDollarsCurr returns dollars in string from tinyBars conversion.
- * tinyBars is converted to USD (at the current constant exchange rate of 0.12 USD to 1 HBar).
- * smallest number being 1 tinyBar, ie USD0.0000000012.
- * @param {number} tinyBars
- * @returns dollars in string
- */
-function tinyBarsToDollarsCurr(tinyBars) {
-    let tBarsToDollars = Dinero({
-            amount: tinyBars,
-            precision: 8
-        })
-        .multiply(DEFAULT_EXCHANGE)
-        .toFormat()
-    return tBarsToDollars
+    return new Decimal(c)
 }
 
 /**
@@ -76,13 +34,9 @@ function tinyBarsToDollarsCurr(tinyBars) {
 function dollarsToTinyBarsUnit(dollars) {
     let a = dollars * 100000000
     let b = a * 1
-    let c = b / DEFAULT_EXCHANGE
-    if (decimalPlaces(c) > 0) {
-        let tinyBarsDeciString = c.toString().split('.')
-        let tinyBarsRoundedInt = parseInt(tinyBarsDeciString)
-        return tinyBarsRoundedInt
-    }
-    return c
+    let c = b / k.DEFAULT_EXCHANGE
+    let d = new Decimal(c)
+    return d.toNearest(1, Decimal.ROUND_DOWN)
 }
 
 /**
@@ -96,10 +50,10 @@ function dollarsToTinyBarsCurr(dollars) {
     let dineroRounded = dineroConversion.toString().split('.')
     let final1 = Number(dineroRounded[0])
     let dolToTinyBarsCurr = Dinero({
-            amount: final1,
-            precision: 2
-        })
-        .divide(DEFAULT_EXCHANGE)
+        amount: final1,
+        precision: 2
+    })
+        .divide(k.DEFAULT_EXCHANGE)
         .toFormat()
     let tinyBarsUnit = dolToTinyBarsCurr.slice(1)
     let tBarsCurrency = `${tinyBarsUnit} tℏ`
@@ -118,10 +72,10 @@ function tinyBarsToHBarsUnit(tinyBars) {
     let a = parseInt(tinyBars) * 10000000000 // this is to ensure we catch 10 decimal places
     let b = a / 100000000
     let c = b / 10000000000
-    if (decimalPlaces(c) > 12) {
-        return 0
+    if (c.toString().match(/[e-]/)) {
+        return new Decimal(c.toFixed(8))
     }
-    return c
+    return new Decimal(c)
 }
 
 /**
@@ -141,14 +95,11 @@ function tinyBarsToHBarsCurr(tinyBars, deciPlace = 8) {
  * hBarsToTinyBarsUnit returns tinyBars in unit from hBars conversion
  * 1 HBar is equal to 100000000 (100 million) tinyBars
  * @param {number} HBars
- * @returns a dinero unit
+ * @returns a Decimal object
  */
 function hBarsToTinyBarsUnit(HBars) {
-    let d = Dinero({
-        amount: HBars * 100
-    }).multiply(100000000)
-    let dInUnits = d.toUnit()
-    return dInUnits
+    let d = HBars * 100000000
+    return new Decimal(d)
 }
 
 /**
@@ -161,8 +112,8 @@ function hBarsToTinyBarsCurr(hBars) {
     // TODO make sure hbars accept up to 2 decimal places
     let dineroConversion = hBars * 100
     let hBarsTotinyBars = Dinero({
-            amount: dineroConversion
-        })
+        amount: dineroConversion
+    })
         .multiply(100000000)
         .toFormat()
     let tinyBarsUnit = hBarsTotinyBars.slice(1)
@@ -182,10 +133,10 @@ function dollarsToHbarsCurr(dollars) {
     let final1 = Number(dineroRounded[0])
 
     let dolToHbars = Dinero({
-            amount: final1,
-            precision: 2
-        })
-        .divide(DEFAULT_EXCHANGE)
+        amount: final1,
+        precision: 2
+    })
+        .divide(k.DEFAULT_EXCHANGE)
         .divide(100000000)
         .toFormat()
 
@@ -204,16 +155,15 @@ function hBarsToDollarsCurr(hBars) {
     // TODO make sure hbars accept up to 2 decimal places
     let dineroConversion = hBars * 100
     let hBarsToDol = Dinero({
-            amount: dineroConversion
-        })
-        .multiply(DEFAULT_EXCHANGE)
+        amount: dineroConversion
+    })
+        .multiply(k.DEFAULT_EXCHANGE)
         .toFormat()
     return hBarsToDol
 }
 
 export {
     tinyBarsToDollarsUnit,
-    tinyBarsToDollarsCurr,
     dollarsToTinyBarsUnit,
     dollarsToTinyBarsCurr,
     tinyBarsToHBarsUnit,
