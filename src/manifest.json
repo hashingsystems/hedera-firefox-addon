@@ -1,9 +1,9 @@
 {
     "manifest_version": 2,
-    "name": "Hedera Browser Extension",
-    "short_name": "Hedera",
+    "name": "Hash Wallet Addon",
+    "short_name": "HashWallet",
     "version": "0.9.32",
-    "description": "This extension makes micropayments from your Hedera account",
+    "description": "This extension makes micropayments from your Hedera account. Unofficial port of the chrome extension.",
     "icons": {
         "128": "icons/Ext-Icon-Configured-128x128.png",
         "48": "icons/Ext-Icon-Configured-48x48.png",
@@ -46,7 +46,8 @@
         "http://*.thetimesta.mp/*",
         "https://*.thetimesta.mp/*",
         "http://*.hash-hash.info/*",
-        "https://*.hash-hash.info/*"
+        "https://*.hash-hash.info/*",
+        "https://*.hashingsystems.com/*"
     ],
     "web_accessible_resources": ["html/banner.html", "icons/icon16.png"],
     "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
