@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let contractTag = await getLocalStorage(contractTagKey)
     log(contractTag)
 
-    if (window.location.protocol !== 'chrome-extension:') {
+    if (window.location.protocol !== 'file:') {
         if (contractTag === undefined || contractTag === null) {
             window.location.href = 'smart-contract.html'
             return

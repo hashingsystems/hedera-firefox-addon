@@ -1,58 +1,43 @@
 <!DOCTYPE html>
 <html lang="en-US">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Account Begin</title>
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, user-scalable=no"
-        />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/hedera.css" />
-        <link rel="stylesheet" type="text/css" href="css/notification.css" />
-        <link rel="stylesheet" type="text/css" href="css/account-begin.css" />
-        <script src="../javascript/account-begin.js"></script>
-    </head>
 
-    <body id="hedera">
-        <div class="container">
-            <div class="row top pb-4 pt-2">
-                <div class="top col-12">
-                    <img
-                        class="rounded-circle"
-                        src="images/Icon-Hbar-White.png"
-                        alt=""
-                        width="35"
-                        height="35"
-                    />
-                </div>
-                <div class="col-12 pt-3">
-                    <p class="title">Getting Started</p>
-                </div>
+<head>
+    <meta charset="UTF-8" />
+    <title>Account Begin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/hedera.css" />
+    <link rel="stylesheet" type="text/css" href="css/notification.css" />
+    <link rel="stylesheet" type="text/css" href="css/account-begin.css" />
+    <script src="../javascript/account-begin.js"></script>
+</head>
+
+<body id="hedera">
+    <div class="container">
+        <div class="row top pb-4 pt-2">
+            <div class="top col-12">
+                <img class="rounded-circle" src="images/Icon-Hbar-White.png" alt="" width="35" height="35" />
             </div>
-
-            <div id="bottom" class="fixed-bottom">
-                <button
-                    class="btn btn-normal btn-block"
-                    type="button"
-                    id="pair"
-                >
-                    Pair a device
-                </button>
-                <div class="col-12 pt-3">
-                    <div id="portal" class="small">
-                        Don’t have a Hedera Portal login and Wallet? Get started
-                        at
-                        <a
-                            id="warningText"
-                            style="color: #2671d0;"
-                            href="https://portal.hedera.com"
-                            target="_blank"
-                            >portal.hedera.com</a
-                        >.
-                    </div>
+            <div class="col-12 pt-3">
+                <p class="title">Getting Started</p>
+                <div class="small" style="margin-top:100px;">
+                    This addon is <strong>not</strong> officially supported by the Hedera team
                 </div>
             </div>
         </div>
-    </body>
+        <div id="bottom" class="fixed-bottom">
+            <button class="btn btn-normal btn-block" type="button" id="pair">
+                Pair a device
+            </button>
+            <div class="col-12 pt-3">
+                <div id="portal" class="small">
+                    Don’t have a Hedera Portal login and Wallet? Get started
+                    at
+                    <a id="warningText" style="color: #2671d0;" href="https://portal.hedera.com" target="_blank">portal.hedera.com</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

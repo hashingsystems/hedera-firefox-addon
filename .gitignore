@@ -148,3 +148,8 @@ src/javascript/models/config/*
 docs/*
 
 src/javascript/config/testaccount.json
+dist.pem
+
+dist.crx
+
+key.pem

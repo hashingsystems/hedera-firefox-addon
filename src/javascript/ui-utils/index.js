@@ -218,7 +218,7 @@ let iconBlocked = function() {
 let popupSetAndSegue = function(htmlFile, segue = true) {
     let chromeExtensionID = chrome.runtime.id
     chrome.browserAction.setPopup({
-        popup: `chrome-extension://${chromeExtensionID}/html/${htmlFile}`
+        popup: `file://${chromeExtensionID}/html/${htmlFile}`
     })
     if (segue) window.location.href = htmlFile
 }
