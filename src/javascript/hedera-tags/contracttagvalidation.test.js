@@ -71,7 +71,7 @@ test('When hedera-contract tag is VALID', async () => {
     expect(result).toEqual({
         contractid: '0.0.1064',
         memo: 'memo',
-        paymentserver: 'http://localhost:8099',
+        paymentserver: 'https://mps.hashingsystems.com',
         abi: abi,
         params: params,
         extensionid: 'ajeohoociaeemadgmpfdkcbhmloppohn'

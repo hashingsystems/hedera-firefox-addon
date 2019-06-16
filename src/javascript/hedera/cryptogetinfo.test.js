@@ -41,7 +41,7 @@ test('cryptogetinfo', async () => {
     let q = client.cryptoGetInfo(sender, 'cryptoGetInfo').prepare()
 
     const CRYPTOGETINFO = enumKeyByValue(Q, Q.CRYPTOGETINFO)
-    // const socket = io.connect('http://localhost:8099')
+    // const socket = io.connect('https://mps.hashingsystems.com')
     // console.log(socket.connected)
     // if (socket.connected) {
     //     socket.on('connect', function() {
