@@ -13,22 +13,22 @@ const defaults = {
 
 const productionPaymentServer = {
     ENV_NAME: 'production',
-    PAYMENT_SERVER: 'https://mps.dailytimestamp.com'
+    PAYMENT_SERVER: 'https://mps.hashingsystems.com'
 }
 
 const stagingPaymentServer = {
     ENV_NAME: 'staging',
-    PAYMENT_SERVER: 'https://mps.thetimesta.mp'
+    PAYMENT_SERVER: 'https://mps.hashingsystems.com'
 }
 
 const developmentPaymentServer = {
     ENV_NAME: 'development',
-    PAYMENT_SERVER: 'http://localhost:8099'
+    PAYMENT_SERVER: 'https://mps.hashingsystems.com'
 }
 
 const testPaymentServer = {
     ENV_NAME: 'test',
-    PAYMENT_SERVER: 'http://localhost:8099'
+    PAYMENT_SERVER: 'https://mps.hashingsystems.com'
 }
 
 const production = {
